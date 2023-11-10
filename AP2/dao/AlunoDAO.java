@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import AP2.modelo.Aluno;
+import AP2.modelo.Fatura;
 import AP2.modelo.Telefone;
 import AP2.modelo.TipoTelefone;
 
@@ -22,10 +23,10 @@ public class AlunoDAO {
     public AlunoDAO(Connection connection) {
         this.connection = connection;
     }
-
-    public void createAluno(Aluno aluno) {
+    /* 
+    public void createAlunolala(Aluno aluno) {
         try {
-            String sql = "INSERT INTO aluno (nome, cpf, matricula, email) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO aluno (nome, cpf, matricula, email, telefone) VALUES (?, ?, ?, ?)";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -49,27 +50,28 @@ public class AlunoDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
+    } */
 
-    public void createComTelefone(Aluno aluno) {
+    public void createAluno(Aluno aluno) {
         try {
-            String sql = "INSERT INTO aluno (nome, cpf, data_nascimento, idade) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO aluno (nome, cpf, matricula, email, telefone) VALUES (?, ?, ?, ?, ?)";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
                 pstm.setString(1, aluno.getNome());
                 pstm.setString(2, aluno.getCpf());
-                pstm.setObject(3, aluno.getDataNascimento());
-                pstm.setInt(4, aluno.getIdade());
+                pstm.setInt(3, aluno.getMatricula());
+                pstm.setString(4, aluno.getEmail());
+                pstm.setInt(5, aluno.getTelefone());
 
                 pstm.execute();
 
                 try (ResultSet rst = pstm.getGeneratedKeys()) {
                     while (rst.next()) {
                         aluno.setId(rst.getInt(1));
-                        for (Telefone telefone : aluno.getTelefones()) {
-                            TelefoneDAO tdao = new TelefoneDAO(connection);
-                            tdao.create(telefone, aluno);
+                        for (Fatura fatura : aluno.getFaturas()) {
+                            FaturaDAO fdao = new FaturaDAO(connection);
+                            fdao.create(fatura, aluno)
                         }
                     }
                 }
@@ -79,12 +81,12 @@ public class AlunoDAO {
         }
     }
 
-    public ArrayList<Aluno> retriveAllSemTelefone(){
+    public ArrayList<Aluno> retriveAllSemFatura(){
         
-        ArrayList<Aluno> pessoas = new ArrayList<Aluno>();
+        ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 
 		try {
-			String sql = "SELECT id, nome, cpf, data_nascimento, idade FROM pessoa";
+			String sql = "SELECT id, nome, cpf, matricula, email, telefone FROM pessoa";
 
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.execute();
@@ -93,54 +95,55 @@ public class AlunoDAO {
                     int id = rst.getInt("id");
                     String nome = rst.getString("nome");
                     String cpf = rst.getString("cpf");
-                    LocalDate data = rst.getObject("data_nascimento", LocalDate.class);
-                    int idade = rst.getInt("idade");
-                    Aluno a = new Aluno(id, nome, cpf, data, idade);
-                    pessoas.add(a);
+                    int matricula = rst.getInt("matricula");
+                    String email = rst.getString("email");
+                    int telefone = rst.getInt("telefone");
+                    Aluno a = new Aluno(id, nome, cpf, matricula, email, telefone);
+                    alunos.add(a);
                 }
 			}
-			return pessoas;
+			return alunos;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
     }
 
-    public ArrayList<Pessoa> retrivePessoasComTelefone(){
+    public ArrayList<Aluno> retriveAlunosComFatura(){
 
-        ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
-        Pessoa ultima = null;
+        ArrayList<Aluno> alunos = new ArrayList<Aluno>();
+        Aluno ultimo = null;
         try {
 
-            String sql = "SELECT p.id, p.nome, p.cpf, p.data_nascimento, p.idade, t.id, t.tipo, t.codigo_pais, t.codigo_area, t.numero "
-                    + "FROM pessoa AS p "
-                    + "INNER JOIN telefone AS t ON p.id = t.fk_pessoa";
+            String sql = "SELECT a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone, f.id, f.valor, f.data_vencimento, f.codigo_fatura "
+                    + "FROM aluno AS a "
+                    + "INNER JOIN fatura AS f ON a.id = f.fk_aluno";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.execute();
 
                 try (ResultSet rst = pstm.getResultSet()) {
                     while (rst.next()) {
-                        if (ultima == null || ultima.getId() != rst.getInt(1)) {
-                            int p_id = rst.getInt(1);
+                        if (ultimo == null || ultimo.getId() != rst.getInt(1)) {
+                            int a_id = rst.getInt(1);
                             String nome = rst.getString(2);
                             String cpf = rst.getString(3);
-                            LocalDate data = rst.getObject(4, LocalDate.class);
-                            int idade = rst.getInt(5);
-                            Pessoa p = new Pessoa(p_id, nome, cpf, data, idade);
-                            pessoas.add(p);
-                            ultima = p;
+                            int matricula = rst.getInt(4);
+                            String email = rst.getString(5);
+                            int telefone = rst.getInt(6);
+                            Aluno a = new Aluno(a_id, nome, cpf, matricula, email, telefone);
+                            alunos.add(a);
+                            ultimo = a;
                         }
 
-                        int tel_id = rst.getInt(6);
-                        TipoTelefone tipo = TipoTelefone.values()[rst.getInt(7)];
-                        int cod_pais = rst.getInt(8);
-                        int cod_area = rst.getInt(9);
-                        int numero = rst.getInt(10);
-                        Telefone t = new Telefone(tel_id, tipo, cod_pais, cod_area, numero);
-                        ultima.addTelefone(t);
+                        int fat_id = rst.getInt(7);
+                        float valor = rst.getInt(8);
+                        LocalDate data_vencimento = rst.getObject(9, LocalDate.class)
+                        int cod_fatura = rst.getInt(10);
+                        Fatura f = new Fatura(fat_id, valor, data_vencimento, cod_fatura);
+                        ultimo.addFatura(f);
                     }
                 }
-                return pessoas;
+                return alunos;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -12,21 +12,42 @@ public class Aluno {
 	private int telefone;
 	private ArrayList<Fatura> faturas;
 
-	public Aluno(int id, String nome, String cpf, int matricula, int telefone, ArrayList<Fatura> faturas) {
+	public Aluno(int id, String nome, String cpf, int matricula, String email, int telefone, ArrayList<Fatura> faturas) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.matricula = matricula;
+		this.email = email;
 		this.telefone = telefone;
 		this.faturas = faturas;
 	}
 	
-	public Aluno(String nome, String cpf, int matricula, int telefone, ArrayList<Fatura> faturas) {
+	public Aluno(String nome, String cpf, int matricula, String email, int telefone, ArrayList<Fatura> faturas) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.matricula = matricula;
+		this.email = email;
 		this.telefone = telefone;
 		this.faturas = faturas;
+	}
+
+	public Aluno(int id, String nome, String cpf, int matricula, String email, int telefone) {
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.matricula = matricula;
+		this.email = email;
+		this.telefone = telefone;
+		this.faturas =  new ArrayList<Fatura>();
+	}
+	
+	public Aluno(String nome, String cpf, int matricula, String email, int telefone) {
+		this.nome = nome;
+		this.cpf = cpf;
+		this.matricula = matricula;
+		this.email = email;
+		this.telefone = telefone;
+		this.faturas =  new ArrayList<Fatura>();
 	}
 
 	public int getId() {
