@@ -9,22 +9,24 @@ public class Aluno {
 	private String cpf;
 	private int matricula;
 	private String email;
-	private ArrayList<Telefone> telefones;
+	private int telefone;
 	private ArrayList<Fatura> faturas;
 
-	public Aluno(int id, String nome, String cpf, int matricula, ArrayList<Telefone> telefones) {
+	public Aluno(int id, String nome, String cpf, int matricula, int telefone, ArrayList<Fatura> faturas) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.matricula = matricula;
-		this.telefones = telefones;
+		this.telefone = telefone;
+		this.faturas = faturas;
 	}
 	
-	public Aluno(String nome, String cpf, int matricula, ArrayList<Telefone> telefones) {
+	public Aluno(String nome, String cpf, int matricula, int telefone, ArrayList<Fatura> faturas) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.matricula = matricula;
-		this.telefones = telefones;
+		this.telefone = telefone;
+		this.faturas = faturas;
 	}
 
 	public int getId() {
@@ -67,20 +69,28 @@ public class Aluno {
 		this.email = email;
 	}
 
-	public ArrayList<Telefone> getTelefones() {
-		return telefones;
+	public int getTelefone() {
+		return telefone;
 	}
 
-	public void setTelefones(ArrayList<Telefone> telefones) {
-		this.telefones = telefones;
+	public void setTelefone(int telefone) {
+		this.telefone = telefone;
 	}
 
-	public void addTelefone(Telefone telefone) {
-		this.telefones.add(telefone);
+	public ArrayList<Fatura> getFaturas() {
+		return faturas;
 	}
 
-	public void removeTelefone(Telefone telefone) {
-		this.telefones.remove(telefone);
+	public void setFaturas(ArrayList<Fatura> faturas) {
+		this.faturas = faturas;
+	}
+
+	public void addFatura(Fatura fatura) {
+		this.faturas.add(fatura);
+	}
+
+	public void removeFatura(Fatura fatura) {
+		this.faturas.remove(fatura);
 	}
 
 	@Override
