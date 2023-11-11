@@ -20,7 +20,7 @@ public class ModalidadeDAO {
 
     public void create(Modalidade modalidade) {
         try {
-            String sql = "INSERT INTO fatura (nome, codigo_modalidade) VALUES (?, ?)";
+            String sql = "INSERT INTO modalidade (nome, codigo_modalidade) VALUES (?, ?)";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
