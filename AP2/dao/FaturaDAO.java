@@ -19,7 +19,7 @@ public class FaturaDAO {
         this.connection = connection;
     }
 
-    public void create(Fatura fatura, Pessoa aluno) {
+    public void create(Fatura fatura, Aluno aluno) {
         try {
             String sql = "INSERT INTO fatura (valor, data_vencimento, codigo_fatura, fk_aluno) VALUES (?, ?, ?, ?)";
 
