@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import java.util.ArrayList;
 
-import modelo.Modalidade;
+import AP2.modelo.Modalidade;
 
 public class ModalidadeDAO {
 
@@ -50,7 +50,7 @@ public class ModalidadeDAO {
 				pstm.execute();
                 ResultSet rst = pstm.getResultSet();
                 int mod_id = rst.getInt("id");
-                String nome = String.values() [rst.getString("nome")];
+                String nome = rst.getString("nome");
                 int cod_mod = rst.getInt("codigo_modalidade");
                 Modalidade m = new Modalidade(mod_id, nome, cod_mod);
                 modalidade.add(m);
