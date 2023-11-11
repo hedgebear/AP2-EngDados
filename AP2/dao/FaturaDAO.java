@@ -47,7 +47,7 @@ public class FaturaDAO {
         ArrayList<Fatura> fatura = new ArrayList<Fatura>();
 
 		try {
-			String sql = "SELECT id, valor, data_vencimento, codigo_fatura, fk_aluno FROM telefone";
+			String sql = "SELECT id, valor, data_vencimento, codigo_fatura, fk_aluno FROM fatura";
 
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.execute();
