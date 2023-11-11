@@ -5,11 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 
-import modelo.Aluno;
-import modelo.Fatura;
+import AP2.modelo.Aluno;
+import AP2.modelo.Fatura;
 
 public class FaturaDAO {
 
@@ -26,7 +26,7 @@ public class FaturaDAO {
             try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
                 pstm.setFloat(1, fatura.getValor());
-                pstm.setLocalDate(2, fatura.getData_Vencimento());
+                pstm.setObject(2, fatura.getData_Vencimento());
                 pstm.setInt(3, fatura.getCodigo_Fatura());
                 pstm.setInt(4, aluno.getId());
                 pstm.execute();
@@ -47,17 +47,16 @@ public class FaturaDAO {
         ArrayList<Fatura> fatura = new ArrayList<Fatura>();
 
 		try {
-			String sql = "SELECT id, valor, data_vencimento, codigo_fatura, fk_aluno FROM fatura";
+			String sql = "SELECT id, valor, data_vencimento, codigo_fatura FROM fatura";
 
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.execute();
                 ResultSet rst = pstm.getResultSet();
                 int fat_id = rst.getInt("id");
                 float valor = rst.getFloat("valor");
-                LocalDate dat_ven = LocalDate.values()[rst.getLocalDate("data_vencimento")];
+                LocalDate dat_ven = rst.getObject("data_vencimento",LocalDate.class);
                 int cod_fat = rst.getInt("codigo_fatura");
-                int alun = rst.getInt("fk_aluno");
-                Fatura f = new Fatura(fat_id, valor, dat_ven, cod_fat, alun);
+                Fatura f = new Fatura(fat_id, valor, dat_ven, cod_fat);
                 fatura.add(f);
 			}
 			return fatura;
