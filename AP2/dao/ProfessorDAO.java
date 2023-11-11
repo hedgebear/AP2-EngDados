@@ -1,4 +1,4 @@
-package AP2.dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import java.util.ArrayList;
 
-import AP2.modelo.Professor;
+import modelo.Professor;
 
 public class ProfessorDAO {
 

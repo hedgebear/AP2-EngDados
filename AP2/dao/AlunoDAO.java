@@ -1,4 +1,4 @@
-package AP2.dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,8 +10,8 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 
-import AP2.modelo.Aluno;
-import AP2.modelo.Fatura;
+import modelo.Aluno;
+import modelo.Fatura;
 
 public class AlunoDAO {
 
@@ -85,7 +85,7 @@ public class AlunoDAO {
 
             String sql = "SELECT a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone, f.id, f.valor, f.data_vencimento, f.codigo_fatura "
                     + "FROM aluno AS a "
-                    + "INNER JOIN fatura AS f ON a.id = f.fk_aluno";
+                    + "INNER JOIN fatura AS f ON a.matricula = f.fk_aluno";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.execute();
@@ -127,7 +127,7 @@ public class AlunoDAO {
 
             String sql = "SELECT a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone, f.id, f.valor, f.data_vencimento, f.codigo_fatura "
                     + "FROM aluno AS a "
-                    + "LEFT JOIN fatura AS f ON a.id = f.fk_aluno";
+                    + "LEFT JOIN fatura AS f ON a.matricula = f.fk_aluno";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.execute();
@@ -168,13 +168,13 @@ public class AlunoDAO {
      */
     public void atualizarAluno(Aluno aluno) {
         try {
-            String sql = "UPDATE aluno SET nome = ?, cpf = ?, email = ? WHERE id = ?";
+            String sql = "UPDATE aluno SET nome = ?, cpf = ?, email = ? WHERE matricula = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setString(1, aluno.getNome());
                 pstm.setString(2, aluno.getCpf());
                 pstm.setString(3, aluno.getEmail());
-                pstm.setInt(4, aluno.getId());
+                pstm.setInt(4, aluno.getMatricula());
 
                 pstm.execute();
             }
@@ -186,10 +186,10 @@ public class AlunoDAO {
     // Método para deleção de dados da tabela
     public void deletarAluno(Aluno aluno) {
         try {
-            String sql = "DELETE FROM aluno WHERE id = ?";
+            String sql = "DELETE FROM aluno WHERE matricula = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.setInt(1, aluno.getId());
+                pstm.setInt(1, aluno.getMatricula());
 
                 pstm.execute();
             }
@@ -204,11 +204,11 @@ public class AlunoDAO {
         try {
             String sql = "SELECT a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone, f.id, f.valor, f.data_vencimento, f.codigo_fatura "
                     + "FROM aluno AS a "
-                    + "INNER JOIN fatura AS f ON a.id = f.fk_aluno "
-                    + "WHERE id = ?";
+                    + "INNER JOIN fatura AS f ON a.matricula = f.fk_aluno "
+                    + "WHERE matricula = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.setInt(1,aluno.getId());
+                pstm.setInt(1,aluno.getMatricula());
 
                 try (ResultSet rst = pstm.getResultSet()) {
                     if (rst.next()) {

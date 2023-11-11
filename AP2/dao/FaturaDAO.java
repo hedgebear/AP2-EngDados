@@ -1,4 +1,4 @@
-package AP2.dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import AP2.modelo.Aluno;
-import AP2.modelo.Fatura;
+import modelo.Aluno;
+import modelo.Fatura;
 
 public class FaturaDAO {
 
@@ -28,7 +28,7 @@ public class FaturaDAO {
                 pstm.setFloat(1, fatura.getValor());
                 pstm.setObject(2, fatura.getData_Vencimento());
                 pstm.setInt(3, fatura.getCodigo_Fatura());
-                pstm.setInt(4, aluno.getId());
+                pstm.setInt(4, aluno.getMatricula());
                 pstm.execute();
 
                 try (ResultSet rst = pstm.getGeneratedKeys()) {
@@ -42,9 +42,9 @@ public class FaturaDAO {
         }
     }
 
-    public ArrayList<Fatura> retriveAll(){
+    public ArrayList<Fatura> retriveAllFaturas(){
         
-        ArrayList<Fatura> fatura = new ArrayList<Fatura>();
+        ArrayList<Fatura> faturas = new ArrayList<Fatura>();
 
 		try {
 			String sql = "SELECT id, valor, data_vencimento, codigo_fatura FROM fatura";
@@ -57,12 +57,69 @@ public class FaturaDAO {
                 LocalDate dat_ven = rst.getObject("data_vencimento",LocalDate.class);
                 int cod_fat = rst.getInt("codigo_fatura");
                 Fatura f = new Fatura(fat_id, valor, dat_ven, cod_fat);
-                fatura.add(f);
+                faturas.add(f);
 			}
-			return fatura;
+			return faturas;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+    }
+    // metodo para atualizar dados da tabela
+    public void atualizarFatura(Fatura fatura) {
+        try {
+            String sql = "UPDATE fatura SET valor = ?, data_vencimento = ? WHERE codigo_fatura = ?";
+
+            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+                pstm.setDouble(1, fatura.getValor());
+                pstm.setObject(2, fatura.getData_Vencimento());
+                pstm.setInt(3, fatura.getCodigo_Fatura());
+
+                pstm.execute();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Método para deleção de dados da tabela
+    public void deletarFatura(Fatura fatura) {
+        try {
+            String sql = "DELETE FROM fatura WHERE codigo_fatura = ?";
+
+            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+                pstm.setInt(1, fatura.getCodigo_Fatura());
+
+                pstm.execute();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Método para consultar dados de um elemento específico da tabela
+    public Fatura consultarfatura(Fatura fatura) {
+        Fatura f = null;
+        try {
+            String sql = "SELECT f.id, f.valor, f.data_vencimento, f.codigo_fatura, f.fk_aluno"
+                    + "WHERE codigo_fatura = ?";
+
+            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+                pstm.setInt(1,fatura.getCodigo_Fatura());
+
+                try (ResultSet rst = pstm.getResultSet()) {
+                    if (rst.next()) {
+                        int fat_id = rst.getInt(7);
+                        float valor = rst.getInt(8);
+                        LocalDate data_vencimento = rst.getObject(9, LocalDate.class);
+                        int cod_fatura = rst.getInt(10);
+                        f = new Fatura(fat_id, valor, data_vencimento, cod_fatura);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return f ;
     }
 
 }

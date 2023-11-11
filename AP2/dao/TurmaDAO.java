@@ -1,4 +1,4 @@
-package AP2.dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,10 +8,10 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import AP2.modelo.Aluno;
-import AP2.modelo.Turma;
-import AP2.modelo.Professor;
-import AP2.modelo.Modalidade;
+import modelo.Aluno;
+import modelo.Turma;
+import modelo.Professor;
+import modelo.Modalidade;
 
 
 public class TurmaDAO {
