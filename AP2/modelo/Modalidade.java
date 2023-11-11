@@ -33,11 +33,11 @@ public class Modalidade {
 		this.nome = nome;
 	}
 	
-	public int getCodigo_modalidade() {
+	public int getCodigo_Modalidade() {
 		return codigo_modalidade;
 	}
 
-	public void setCodigo(int codigo_modalidade) {
+	public void setCodigo_Modalidade(int codigo_modalidade) {
 		this.codigo_modalidade = codigo_modalidade;
 	}
 	
