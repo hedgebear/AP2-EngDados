@@ -27,7 +27,7 @@ public class ProfessorDAO {
                 pstm.setString(1, professor.getNome());
                 pstm.setInt(2, professor.getCodigo_professor());
                 pstm.setString(3, professor.getCpf());
-                pstm.setString(4, professor.getTelefone());
+                pstm.setInt(4, professor.getTelefone());
                 pstm.setString(5, professor.getEmail());
                 pstm.setString(6, professor.getEspecializacao());
                 pstm.setString(7, professor.getContaBanco());
@@ -45,7 +45,7 @@ public class ProfessorDAO {
     }
 
     public ArrayList<Professor> retriveAll(){
-        
+
         ArrayList<Professor> professor = new ArrayList<Professor>();
 
         try {
@@ -55,14 +55,14 @@ public class ProfessorDAO {
                 pstm.execute();
                 ResultSet rst = pstm.getResultSet();
                 int prof_id = rst.getInt("id");
-                String nome_prof = rst.getString("nome");
                 int cod_prof = rst.getInt("codigo_professor");
+                String nome_prof = rst.getString("nome");
                 String cpf_prof = rst.getString("cpf");
-                String tel_prof = rst.getString("telefone");
-                String email_prof = rst.getString("email");
                 String espec_prof = rst.getString("especializacao");
                 String conta_prof = rst.getString("contaBanco");
-                Professor p = new Professor(prof_id, nome_prof, cod_prof, cpf_prof, tel_prof, email_prof, espec_prof, conta_prof);
+                String email_prof = rst.getString("email");
+                int tel_prof = rst.getInt("telefone");
+                Professor p = new Professor(prof_id, cod_prof, nome_prof, cpf_prof, espec_prof, conta_prof, email_prof, tel_prof);
                 professor.add(p);
             }
             return professor;

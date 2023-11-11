@@ -1,113 +1,111 @@
 package AP2.modelo;
 
-import java.util.ArrayList;
-
 public class Professor {
 
-	private int id;
-	private int codigo_professor;
-	private String nome;
-	private String cpf;
-	private String especialização;
-	private String contaBanco;
-	private String email;
-	private ArrayList<Telefone> telefones;
+    private int id;
+    private int codigo_professor;
+    private String nome;
+    private String cpf;
+    private String especializacao;
+    private String contaBanco;
+    private String email;
+    private int telefone;
 
-	public Professor(int id, String nome, String cpf, ArrayList<Telefone> telefones) {
-		this.id = id;
-		this.nome = nome;
-		this.cpf = cpf;
-		this.telefones = telefones;
-	}
+ 
+        public Professor(int id, int codigo_professor, String nome, String cpf, String especializacao, String contaBanco, String email, int telefone) {
+        this.id = id;
+        this.codigo_professor = codigo_professor;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.especializacao = especializacao;
+        this.contaBanco = contaBanco;
+        this.email = email;
+        this.telefone = telefone;
+    }
 
-	public Professor(String nome, String cpf, ArrayList<Telefone> telefones) {
-		this.nome = nome;
-		this.cpf = cpf;
-		this.telefones = telefones;
-	}
+    public Professor(int codigo_professor, String nome, String cpf, String especializacao, String contaBanco, String email, int telefone) {
+        this.codigo_professor = codigo_professor;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.especializacao = especializacao;
+        this.contaBanco = contaBanco;
+        this.email = email;
+        this.telefone = telefone;
+    }
 
-	public Professor(int prof_id, String nome_prof, int cod_prof, String cpf_prof, String tel_prof, String email_prof,
+    public Professor(int prof_id, int cod_prof, String nome_prof, String cpf_prof, String tel_prof, String email_prof,
             String espec_prof, String conta_prof) {
     }
 
     public int getId() {
-		return id;
-	}
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	public int getCodigo_professor() {
-		return codigo_professor;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setCodigo_professor(int codigo_professor) {
-		this.codigo_professor = codigo_professor;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
+    public int getCodigo_professor() {
+        return codigo_professor;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setCodigo_professor(int codigo_professor) {
+        this.codigo_professor = codigo_professor;
+    }
 
-	public String getCpf() {
-		return cpf;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public String getEspecialização() {
-		return especialização;
-	}
+    public String getCpf() {
+        return cpf;
+    }
 
-	public void setEspecialização(String especialização) {
-		this.especialização = especialização;
-	}
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
-	public String getContaBanco() {
-		return contaBanco;
-	}
+    public String getEspecializacao() {
+        return especializacao;
+    }
 
-	public void setContaBanco(String contaBanco) {
-		this.contaBanco = contaBanco;
-	}
+    public void setEspecialização(String especialização) {
+        this.especializacao = especialização;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getContaBanco() {
+        return contaBanco;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setContaBanco(String contaBanco) {
+        this.contaBanco = contaBanco;
+    }
 
-	public ArrayList<Telefone> getTelefones() {
-		return telefones;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setTelefones(ArrayList<Telefone> telefones) {
-		this.telefones = telefones;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void addTelefone(Telefone telefone) {
-		this.telefones.add(telefone);
-	}
+    public int getTelefone() {
+        return telefone;
+    }
 
-	public void removeTelefone(Telefone telefone) {
-		this.telefones.remove(telefone);
-	}
+    public void setTelefone (int telefone) {
+        this.telefone = telefone;
+    }
 
-	@Override
-	public String toString() {
-		return "{'professor':{'id': " + this.id + ", 'codigo_professor': " + this.codigo_professor 
-		+ ", 'nome': '" + this.nome + "', 'cpf': '" + this.cpf + "', 'especialização': '" + this.especialização 
-		+ "', 'contaBanco': '" + this.contaBanco + "', 'Email': '" + this.email + "'}}";
-	}
-	
+    @Override
+    public String toString() {
+        return "{'professor':{'id': " + this.id + ", 'codigo_professor': " + this.codigo_professor 
+        + ", 'nome': '" + this.nome + "', 'cpf': '" + this.cpf + "', 'especialização': '" + this.especializacao 
+        + "', 'contaBanco': '" + this.contaBanco + "', 'Email': '" + this.email + "'}}";
+    }
+
 }
-
