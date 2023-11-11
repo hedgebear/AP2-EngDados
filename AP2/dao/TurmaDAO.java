@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import AP2.modelo.Aluno;
 import AP2.modelo.Turma;
 import AP2.modelo.Professor;
+import AP2.modelo.Modalidade;
 
 public class TurmaDAO {
 
@@ -58,9 +59,7 @@ public class TurmaDAO {
                 int cod_turma = rst.getInt("codigo_turma");
                 LocalDate daturma = rst.getObject("data_turma",LocalDate.class);
                 String hor_turma = rst.getString("hora_turma");
-                int Fprofessor = rst.getInt("fk_professor");
-                int Fmodalidade = rst.getInt("fk_modalidade");
-                Turma t = new Turma(tur_id, cod_turma, daturma, hor_turma, Fprofessor, Fmodalidade);
+                Turma t = new Turma(tur_id, cod_turma, daturma, hor_turma);
                 turma.add(t);
             }
             return turma;
