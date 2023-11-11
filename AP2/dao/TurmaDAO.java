@@ -13,6 +13,7 @@ import AP2.modelo.Turma;
 import AP2.modelo.Professor;
 import AP2.modelo.Modalidade;
 
+
 public class TurmaDAO {
 
     private Connection connection;
