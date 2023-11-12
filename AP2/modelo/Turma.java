@@ -1,4 +1,4 @@
-package AP2.modelo;
+package modelo;
 
 import java.time.LocalDate;
 

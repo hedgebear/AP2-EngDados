@@ -1,4 +1,4 @@
-package AP2.modelo;
+package modelo;
 
 public class Professor {
 

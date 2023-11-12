@@ -24,13 +24,13 @@ public class TurmaDAO {
 
     public void create(Turma turma, Aluno aluno, Professor professor, Modalidade modalidade) {
         try {
-            String sql = "INSERT INTO turma (codigo_turma, data_turma, hora_turma, fk_professor, fk_modalidade) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO turma (codigo_turma, data, hora, fk_professor, fk_modalidade) VALUES (?, ?, ?, ?, ?)";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-                pstm.setInt(1, turma.getCodigo_Turma());
-                pstm.setLocalDate(2, turma.getData_Turma());
-                pstm.setInt(3, turma.getHora_Turma());
+                pstm.setInt(1, turma.getCodigo_turma());
+                pstm.setObject(2, turma.getData());
+                pstm.setString(3, turma.getHora());
                 pstm.setInt(4, professor.getCodigo_professor());
                 pstm.setInt(5, modalidade.getCodigo_Modalidade());
                 pstm.execute();
@@ -58,9 +58,9 @@ public class TurmaDAO {
                 ResultSet rst = pstm.getResultSet();
                 int tur_id = rst.getInt("id");
                 int cod_turma = rst.getInt("codigo_turma");
-                LocalDate daturma = rst.getObject("data_turma",LocalDate.class);
-                String hor_turma = rst.getString("hora_turma");
-                Turma t = new Turma(tur_id, cod_turma, daturma, hor_turma);
+                LocalDate data_turma = rst.getObject("data",LocalDate.class);
+                String hora_turma = rst.getString("hora");
+                Turma t = new Turma(tur_id, cod_turma, data_turma, hora_turma);
                 turma.add(t);
             }
             return turma;
