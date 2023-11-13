@@ -49,7 +49,7 @@ public class AlunoDAO {
             throw new RuntimeException(e);
         }
     }
-
+    // metodo para pegar todos os sem fatura
     public ArrayList<Aluno> retriveAllSemFatura(){
         
         ArrayList<Aluno> alunos = new ArrayList<Aluno>();
@@ -76,7 +76,7 @@ public class AlunoDAO {
 			throw new RuntimeException(e);
 		}
     }
-
+    // metodo para pegar todos com fatura
     public ArrayList<Aluno> retriveAlunosComFatura(){
 
         ArrayList<Aluno> alunos = new ArrayList<Aluno>();
@@ -118,7 +118,7 @@ public class AlunoDAO {
             throw new RuntimeException(e);
         }
     }
-
+    // metodo para pegar todos com fatura e sem fatura
     public ArrayList<Aluno> retriveAllComFatura(){
 
         ArrayList<Aluno> alunos = new ArrayList<Aluno>();
@@ -163,9 +163,6 @@ public class AlunoDAO {
     }
 
     // Método para atualização de dados na tabela
-    /* ou podemos fazer um metodo q a gnt da o aluno e o id dele como parametro
-     * e  na hora do where ele pega o id q foi dado como parametro.
-     */
     public void atualizarAluno(Aluno aluno) {
         try {
             String sql = "UPDATE aluno SET nome = ?, cpf = ?, email = ? WHERE matricula = ?";
@@ -199,26 +196,26 @@ public class AlunoDAO {
     }
 
     // Método para consultar dados de um elemento específico da tabela
-    public Aluno consultarAluno(Aluno aluno) {
+    public Aluno consultarAlunoMatricula(int matricula) {
         Aluno a = null;
         try {
-            String sql = "SELECT a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone, f.id, f.valor, f.data_vencimento, f.codigo_fatura "
+            String sql = "SELECT a.id, a.nome, a.cpf, a.email, a.telefone, f.id, f.valor, f.data_vencimento, f.codigo_fatura "
                     + "FROM aluno AS a "
                     + "INNER JOIN fatura AS f ON a.matricula = f.fk_aluno "
                     + "WHERE matricula = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.setInt(1,aluno.getMatricula());
+                pstm.setInt(1,matricula);
 
                 try (ResultSet rst = pstm.getResultSet()) {
                     if (rst.next()) {
                         int a_id = rst.getInt(1);
                         String nome = rst.getString(2);
                         String cpf = rst.getString(3);
-                        int matricula = rst.getInt(4);
+                        int matricula_recebida = rst.getInt(4);
                         String email = rst.getString(5);
                         int telefone = rst.getInt(6);
-                        a = new Aluno(a_id, nome, cpf, matricula, email, telefone);
+                        a = new Aluno(a_id, nome, cpf, matricula_recebida, email, telefone);
                         
                         int fat_id = rst.getInt(7);
                         float valor = rst.getInt(8);
