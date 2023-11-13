@@ -12,7 +12,7 @@ public class ConnectionFactory {
       String endereco = "localhost";
       String bd = "academia";
       String usuario = "root";
-      String senha = "lucas2002@$";
+      String senha = "mysqlroot";
 
       Connection connection = DriverManager.getConnection(
           "jdbc:" + sgbd + "://" + endereco + "/" + bd + "?useTimezone=true&serverTimezone=UTC", usuario, senha);
