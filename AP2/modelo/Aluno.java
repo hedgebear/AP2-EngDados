@@ -7,12 +7,12 @@ public class Aluno {
 	private int id;
 	private String nome;
 	private String cpf;
-	private int matricula;
+	private String matricula;
 	private String email;
 	private int telefone;
 	private ArrayList<Fatura> faturas;
 
-	public Aluno(int id, String nome, String cpf, int matricula, String email, int telefone, ArrayList<Fatura> faturas) {
+	public Aluno(int id, String nome, String cpf, String matricula, String email, int telefone, ArrayList<Fatura> faturas) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -22,7 +22,7 @@ public class Aluno {
 		this.faturas = faturas;
 	}
 	
-	public Aluno(String nome, String cpf, int matricula, String email, int telefone, ArrayList<Fatura> faturas) {
+	public Aluno(String nome, String cpf, String matricula, String email, int telefone, ArrayList<Fatura> faturas) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.matricula = matricula;
@@ -31,7 +31,7 @@ public class Aluno {
 		this.faturas = faturas;
 	}
 
-	public Aluno(int id, String nome, String cpf, int matricula, String email, int telefone) {
+	public Aluno(int id, String nome, String cpf, String matricula, String email, int telefone) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -41,7 +41,7 @@ public class Aluno {
 		this.faturas =  new ArrayList<Fatura>();
 	}
 	
-	public Aluno(String nome, String cpf, int matricula, String email, int telefone) {
+	public Aluno(String nome, String cpf, String matricula, String email, int telefone) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.matricula = matricula;
@@ -74,11 +74,11 @@ public class Aluno {
 		this.cpf = cpf;
 	}
 	
-	public int getMatricula() {
+	public String getMatricula() {
 		return matricula;
 	}
 
-	public void setMatricula(int matricula) {
+	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
 

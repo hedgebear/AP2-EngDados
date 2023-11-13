@@ -28,7 +28,7 @@ public class FaturaDAO {
                 pstm.setFloat(1, fatura.getValor());
                 pstm.setObject(2, fatura.getData_Vencimento());
                 pstm.setInt(3, fatura.getCodigo_Fatura());
-                pstm.setInt(4, aluno.getMatricula());
+                pstm.setString(4, aluno.getMatricula());
                 pstm.execute();
 
                 try (ResultSet rst = pstm.getGeneratedKeys()) {

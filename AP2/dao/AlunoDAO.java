@@ -29,7 +29,7 @@ public class AlunoDAO {
 
                 pstm.setString(1, aluno.getNome());
                 pstm.setString(2, aluno.getCpf());
-                pstm.setInt(3, aluno.getMatricula());
+                pstm.setString(3, aluno.getMatricula());
                 pstm.setString(4, aluno.getEmail());
                 pstm.setInt(5, aluno.getTelefone());
 
@@ -64,7 +64,7 @@ public class AlunoDAO {
                     int id = rst.getInt("id");
                     String nome = rst.getString("nome");
                     String cpf = rst.getString("cpf");
-                    int matricula = rst.getInt("matricula");
+                    String matricula = rst.getString("matricula");
                     String email = rst.getString("email");
                     int telefone = rst.getInt("telefone");
                     Aluno a = new Aluno(id, nome, cpf, matricula, email, telefone);
@@ -96,7 +96,7 @@ public class AlunoDAO {
                             int a_id = rst.getInt(1);
                             String nome = rst.getString(2);
                             String cpf = rst.getString(3);
-                            int matricula = rst.getInt(4);
+                            String matricula = rst.getString(4);
                             String email = rst.getString(5);
                             int telefone = rst.getInt(6);
                             Aluno a = new Aluno(a_id, nome, cpf, matricula, email, telefone);
@@ -138,7 +138,7 @@ public class AlunoDAO {
                             int a_id = rst.getInt(1);
                             String nome = rst.getString(2);
                             String cpf = rst.getString(3);
-                            int matricula = rst.getInt(4);
+                            String matricula = rst.getString(4);
                             String email = rst.getString(5);
                             int telefone = rst.getInt(6);
                             Aluno a = new Aluno(a_id, nome, cpf, matricula, email, telefone);
@@ -165,13 +165,13 @@ public class AlunoDAO {
     // Método para atualização de dados na tabela
     public void atualizarAluno(Aluno aluno) {
         try {
-            String sql = "UPDATE aluno SET nome = ?, cpf = ?, email = ? WHERE matricula = ?";
+            String sql = "UPDATE aluno SET nome = ?, cpf = ?, email = ? WHERE id = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setString(1, aluno.getNome());
                 pstm.setString(2, aluno.getCpf());
                 pstm.setString(3, aluno.getEmail());
-                pstm.setInt(4, aluno.getMatricula());
+                pstm.setInt(4, aluno.getId());
 
                 pstm.execute();
             }
@@ -183,10 +183,10 @@ public class AlunoDAO {
     // Método para deleção de dados da tabela
     public void deletarAluno(Aluno aluno) {
         try {
-            String sql = "DELETE FROM aluno WHERE matricula = ?";
+            String sql = "DELETE FROM aluno WHERE id = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.setInt(1, aluno.getMatricula());
+                pstm.setInt(1, aluno.getId());
 
                 pstm.execute();
             }
@@ -196,7 +196,7 @@ public class AlunoDAO {
     }
 
     // Método para consultar dados de um elemento específico da tabela
-    public Aluno consultarAlunoMatricula(int matricula) {
+    public Aluno consultarAlunoMatricula(String matricula) {
         Aluno a = null;
         try {
             String sql = "SELECT a.id, a.nome, a.cpf, a.email, a.telefone, f.id, f.valor, f.data_vencimento, f.codigo_fatura "
@@ -205,14 +205,14 @@ public class AlunoDAO {
                     + "WHERE matricula = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.setInt(1,matricula);
+                pstm.setString(1,matricula);
 
                 try (ResultSet rst = pstm.getResultSet()) {
                     if (rst.next()) {
                         int a_id = rst.getInt(1);
                         String nome = rst.getString(2);
                         String cpf = rst.getString(3);
-                        int matricula_recebida = rst.getInt(4);
+                        String matricula_recebida = rst.getString(4);
                         String email = rst.getString(5);
                         int telefone = rst.getInt(6);
                         a = new Aluno(a_id, nome, cpf, matricula_recebida, email, telefone);
