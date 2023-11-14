@@ -100,7 +100,7 @@ public class TurmaDAO {
     public Turma consultarTurma(Turma turma) {
         Turma t = null;
         try {
-            String sql = "SELECT t.id, t.codigo_Turma, t.data_turma, t.hora_turma, t.fk_professor , t.fk_modalidade"
+            String sql = "SELECT t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor , t.fk_modalidade"
                     + "WHERE codigo_fatura = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
