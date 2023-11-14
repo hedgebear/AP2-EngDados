@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import modelo.Professor;
+import modelo.Turma;
 
 public class ProfessorDAO {
 
@@ -36,6 +37,10 @@ public class ProfessorDAO {
                 try (ResultSet rst = pstm.getGeneratedKeys()) {
                     while (rst.next()) {
                         professor.setId(rst.getInt(1));
+                        for (Turma turma : professor.getTurmas()) {
+                            TurmaDAO tdao = new TurmaDAO(connection);
+                            tdao.create(turma, professor);
+                        }
                     }
                 }
             }
@@ -44,7 +49,7 @@ public class ProfessorDAO {
         }
     }
 
-    public ArrayList<Professor> retriveAll(){
+    public ArrayList<Professor> retriveAllSemTurma(){
 
         ArrayList<Professor> professor = new ArrayList<Professor>();
 
@@ -71,4 +76,163 @@ public class ProfessorDAO {
         }
     }
 
+    public ArrayList<Professor> retriveAllComTurma(){
+
+        ArrayList<Professor> professor = new ArrayList<Professor>();
+        Professor ultimo = null
+        try {
+            String sql = "SELECT p.id, p.nome, p.codigo_professor, p.cpf, p.telefone, p.email, p.especializacao, p.contaBanco, t.id, t.codigo_turma, t.data_turma, t.hora_turma" 
+            + "FROM professor as p"
+            + "INNER JOIN turma as t on p.codigo_professor = t.fk_professor";
+
+            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+                pstm.execute();
+
+                try (ResultSet rst = pstm.getResultSet()) {
+                    while (rst.next()) {
+                        if (ultimo == null || ultimo.getId() != rst.getInt(1)) {
+                            int prof_id = rst.getInt(1);
+                            String nome = rst.getString(2);
+                            int codigo_prof = rst.getInt(3);
+                            String cpf = rst.getString(4);
+                            int telefone = rst.getInt(5);
+                            String email = rst.getString(6);
+                            String especializacao = rst.getString(7);
+                            String contaBanco = rst.getString(8);
+                            Professor p = new Professor(prof_id, nome, codigo_prof, cpf, telefone, email, especializacao, contaBanco);
+                            professor.add(p);
+                            ultimo = p;
+                        }
+                        int tur_id = rst.getInt(9);
+                        float codigo_turma = rst.getInt(10);
+                        LocalDate data_turma = rst.getObject(11, LocalDate.class);
+                        String hora_turma = rst.getString(12);
+                        Turma t = new Turma(tur_id, codigo_turma, data_turma, hora_turma);
+                        ultimo.addTurma(t);
+                }
+            }
+            return professor;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+    public ArrayList<Professor> retriveAllComSemTurma(){
+
+        ArrayList<Professor> professor = new ArrayList<Professor>();
+        Professor ultimo = null
+        try {
+            String sql = "SELECT p.id, p.nome, p.codigo_professor, p.cpf, p.telefone, p.email, p.especializacao, p.contaBanco, t.id, t.codigo_turma, t.data_turma, t.hora_turma" 
+            + "FROM professor as p"
+            + "LEFT JOIN turma as t on p.codigo_professor = t.fk_professor";
+
+            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+                pstm.execute();
+
+                try (ResultSet rst = pstm.getResultSet()) {
+                    while (rst.next()) {
+                        if (ultimo == null || ultimo.getId() != rst.getInt(1)) {
+                            int prof_id = rst.getInt(1);
+                            String nome = rst.getString(2);
+                            int codigo_prof = rst.getInt(3);
+                            String cpf = rst.getString(4);
+                            int telefone = rst.getInt(5);
+                            String email = rst.getString(6);
+                            String especializacao = rst.getString(7);
+                            String contaBanco = rst.getString(8);
+                            Professor p = new Professor(prof_id, nome, codigo_prof, cpf, telefone, email, especializacao, contaBanco);
+                            professor.add(p);
+                            ultimo = p;
+                        }
+
+                        if(rst.getInt(7) != 0){
+                            int tur_id = rst.getInt(9);
+                            float codigo_turma = rst.getInt(10);
+                            LocalDate data_turma = rst.getObject(11, LocalDate.class);
+                            String hora_turma = rst.getString(12);
+                            Turma t = new Turma(tur_id, codigo_turma, data_turma, hora_turma);
+                            ultimo.addTurma(t);
+                        }
+                }
+            }
+            return professor;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+    public void atualizarProfessor(Professor professor) {
+        try {
+            String sql = "UPDATE professor SET nome = ?, cpf = ?, telefone = ?, email = ?, especializacao = ?, contaBanco = ? WHERE id = ?";
+
+            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+                pstm.setString(1, professor.getNome());
+                pstm.setString(2, professor.getCpf());
+                pstm.setInt(3, professor.getTelefone())
+                pstm.setString(4, professor.getEmail());
+                pstm.setString(5, professor.getEspecializacao());
+                pstm.setString(6, professor.getContaBanco());
+                pstm.setInt(7, aluno.getId());
+
+                pstm.execute();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deletarProfessor(Professor professor) {
+        try {
+            String sql = "DELETE FROM professor WHERE id = ?";
+
+            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+                pstm.setInt(1, professor.getId());
+
+                pstm.execute();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Professor consultarProfessorCodigo(int codigo_professor) {
+        Professor p = null;
+        try {
+            String sql = "SELECT p.id, p.nome, p.cpf, p.telefone, p.email, p.especializacao, p.contaBanco, t.id, t.codigo_turma, t.data_turma, t.hora_turma" 
+                    + "FROM professor as p"
+                    + "INNER JOIN turma as t on p.codigo_professor = t.fk_professor";
+                    + "WHERE codigo_professor = ?";
+
+            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+                pstm.setInt(1,codigo_professor);
+
+                try (ResultSet rst = pstm.getResultSet()) {
+                    if (rst.next()) {
+                        int prof_id = rst.getInt(1);
+                        String nome = rst.getString(2);
+                        String cpf = rst.getString(3);
+                        int telefone = rst.getInt(4);
+                        String email = rst.getString(5);
+                        String especializacao = rst.getString(6);
+                        String contaBanco = rst.getString(7);
+                        p = new Professor(prof_id, nome, cpf, telefone, email, especializacao, contaBanco);
+                        
+                        int tur_id = rst.getInt(9);
+                        float codigo_turma = rst.getInt(10);
+                        LocalDate data_turma = rst.getObject(11, LocalDate.class);
+                        String hora_turma = rst.getString(12);
+                        Turma t = new Turma(tur_id, codigo_turma, data_turma, hora_turma);
+                        p.addTurma(t);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return p;
+    }
 }
