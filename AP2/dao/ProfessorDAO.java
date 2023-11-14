@@ -5,11 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 import java.util.ArrayList;
 
 import modelo.Professor;
 import modelo.Turma;
+import modelo.Modalidade;
 
 public class ProfessorDAO {
 
@@ -37,10 +39,6 @@ public class ProfessorDAO {
                 try (ResultSet rst = pstm.getGeneratedKeys()) {
                     while (rst.next()) {
                         professor.setId(rst.getInt(1));
-                        for (Turma turma : professor.getTurmas()) {
-                            TurmaDAO tdao = new TurmaDAO(connection);
-                            tdao.create(turma, professor);
-                        }
                     }
                 }
             }
@@ -79,7 +77,7 @@ public class ProfessorDAO {
     public ArrayList<Professor> retriveAllComTurma(){
 
         ArrayList<Professor> professor = new ArrayList<Professor>();
-        Professor ultimo = null
+        Professor ultimo = null;
         try {
             String sql = "SELECT p.id, p.nome, p.codigo_professor, p.cpf, p.telefone, p.email, p.especializacao, p.contaBanco, t.id, t.codigo_turma, t.data_turma, t.hora_turma" 
             + "FROM professor as p"
@@ -99,12 +97,12 @@ public class ProfessorDAO {
                             String email = rst.getString(6);
                             String especializacao = rst.getString(7);
                             String contaBanco = rst.getString(8);
-                            Professor p = new Professor(prof_id, nome, codigo_prof, cpf, telefone, email, especializacao, contaBanco);
+                            Professor p = new Professor(prof_id, codigo_prof, nome, cpf, especializacao, contaBanco, email, telefone);
                             professor.add(p);
                             ultimo = p;
                         }
                         int tur_id = rst.getInt(9);
-                        float codigo_turma = rst.getInt(10);
+                        int codigo_turma = rst.getInt(10);
                         LocalDate data_turma = rst.getObject(11, LocalDate.class);
                         String hora_turma = rst.getString(12);
                         Turma t = new Turma(tur_id, codigo_turma, data_turma, hora_turma);
@@ -122,7 +120,7 @@ public class ProfessorDAO {
     public ArrayList<Professor> retriveAllComSemTurma(){
 
         ArrayList<Professor> professor = new ArrayList<Professor>();
-        Professor ultimo = null
+        Professor ultimo = null;
         try {
             String sql = "SELECT p.id, p.nome, p.codigo_professor, p.cpf, p.telefone, p.email, p.especializacao, p.contaBanco, t.id, t.codigo_turma, t.data_turma, t.hora_turma" 
             + "FROM professor as p"
@@ -142,14 +140,14 @@ public class ProfessorDAO {
                             String email = rst.getString(6);
                             String especializacao = rst.getString(7);
                             String contaBanco = rst.getString(8);
-                            Professor p = new Professor(prof_id, nome, codigo_prof, cpf, telefone, email, especializacao, contaBanco);
+                            Professor p = new Professor(prof_id, codigo_prof, nome, cpf, especializacao, contaBanco, email, telefone);
                             professor.add(p);
                             ultimo = p;
                         }
 
                         if(rst.getInt(7) != 0){
                             int tur_id = rst.getInt(9);
-                            float codigo_turma = rst.getInt(10);
+                            int codigo_turma = rst.getInt(10);
                             LocalDate data_turma = rst.getObject(11, LocalDate.class);
                             String hora_turma = rst.getString(12);
                             Turma t = new Turma(tur_id, codigo_turma, data_turma, hora_turma);
@@ -219,10 +217,10 @@ public class ProfessorDAO {
                         String email = rst.getString(5);
                         String especializacao = rst.getString(6);
                         String contaBanco = rst.getString(7);
-                        p = new Professor(prof_id, nome, cpf, telefone, email, especializacao, contaBanco);
+                        p = new Professor(prof_id, codigo_prof, nome, cpf, especializacao, contaBanco, email, telefone);
                         
                         int tur_id = rst.getInt(9);
-                        float codigo_turma = rst.getInt(10);
+                        int codigo_turma = rst.getInt(10);
                         LocalDate data_turma = rst.getObject(11, LocalDate.class);
                         String hora_turma = rst.getString(12);
                         Turma t = new Turma(tur_id, codigo_turma, data_turma, hora_turma);

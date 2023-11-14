@@ -16,7 +16,7 @@ public class Turma {
 		this.hora_turma = hora_turma;
 	}
 
-	public Turma(int codigo_turma, LocalDate data_turma_turma, String hora_turma) {
+	public Turma(int codigo_turma, LocalDate data_turma, String hora_turma) {
 		this.codigo_turma = codigo_turma;
 		this.data_turma = data_turma;
 		this.hora_turma = hora_turma;

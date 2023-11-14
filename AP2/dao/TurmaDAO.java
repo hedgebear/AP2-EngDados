@@ -27,7 +27,7 @@ public class TurmaDAO {
 
             try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-                pstm.setInt(1, turma.getCodigo_turma());
+                pstm.setInt(1, turma.getCodigo_Turma());
                 pstm.setObject(2, turma.getData_Turma());
                 pstm.setString(3, turma.getHora_Turma());
                 pstm.setInt(4, professor.getCodigo_professor());
@@ -36,7 +36,11 @@ public class TurmaDAO {
 
                 try (ResultSet rst = pstm.getGeneratedKeys()) {
                     while (rst.next()) {
-                        turma.setId(rst.getInt(1));
+                        professor.setId(rst.getInt(1));
+                        for (Turm turma : professor.getTurmas()) {
+                            TurmaDAO tdao = new TurmaDAO(connection);
+                            tdao.create(turma, professor);
+                        }
                     }
                 }
             }
@@ -88,7 +92,7 @@ public class TurmaDAO {
             String sql = "DELETE FROM turma WHERE codigo_turma = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.setInt(1, fatura.getCodigo_Turma());
+                pstm.setInt(1, turma.getCodigo_Turma());
 
                 pstm.execute();
             }
@@ -97,14 +101,14 @@ public class TurmaDAO {
         }
     }
 
-    public Turma consultarTurma(Turma turma) {
+    public Turma consultarTurmaEspc(Turma turma) {
         Turma t = null;
         try {
             String sql = "SELECT t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor , t.fk_modalidade"
-                    + "WHERE codigo_fatura = ?";
+                    + "WHERE id = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.setInt(1,turma.getCodigo_Turma());
+                pstm.setInt(1,turma.getId());
 
                 try (ResultSet rst = pstm.getResultSet()) {
                     if (rst.next()) {

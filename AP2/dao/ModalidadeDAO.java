@@ -5,10 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 import java.util.ArrayList;
 
 import modelo.Modalidade;
+import modelo.Professor;
 import modelo.Turma;
 
 public class ModalidadeDAO {
@@ -19,7 +21,7 @@ public class ModalidadeDAO {
         this.connection = connection;
     }
 
-    public void create(Modalidade modalidade) {
+    public void createComProfessor(Modalidade modalidade) {
         try {
             String sql = "INSERT INTO modalidade (nome, codigo_modalidade) VALUES (?, ?)";
 
@@ -34,7 +36,7 @@ public class ModalidadeDAO {
                         modalidade.setId(rst.getInt(1));
                         for (Turma turma : modalidade.getTurmas()) {
                             TurmaDAO tdao = new TurmaDAO(connection);
-                            tdao.create(turma, modalidade);
+                            tdao.create(turma,professor,modalidade);
                         }
                     }
                 }
@@ -69,7 +71,7 @@ public class ModalidadeDAO {
     public ArrayList<Modalidade> retriveAllComTurma(){
         
         ArrayList<Modalidade> modalidade = new ArrayList<Modalidade>();
-        Modalidade ultimo = null
+        Modalidade ultimo = null;
 
 		try {
 			String sql = "SELECT m.id, m.nome, m.codigo_modalidade, t.id, t.codigo_turma, t.data_turma, t.hora_turma"
@@ -105,7 +107,7 @@ public class ModalidadeDAO {
     public ArrayList<Modalidade> retriveAllComSemTurma(){
         
         ArrayList<Modalidade> modalidade = new ArrayList<Modalidade>();
-        Modalidade ultimo = null
+        Modalidade ultimo = null;
 
 		try {
 			String sql = "SELECT m.id, m.nome, m.codigo_modalidade, t.id, t.codigo_turma, t.data_turma, t.hora_turma"
