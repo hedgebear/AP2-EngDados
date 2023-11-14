@@ -30,11 +30,11 @@ public class Turma {
 		this.id = id;
 	}
 
-	public int getCodigo_turma() {
+	public int getCodigo_Turma() {
 		return codigo_turma;
 	}
 
-	public void setCodigo_turma(int codigo_turma) {
+	public void setCodigo_Turma(int codigo_turma) {
 		this.codigo_turma = codigo_turma;
 	}
 
