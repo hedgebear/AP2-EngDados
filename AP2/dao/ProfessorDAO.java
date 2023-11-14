@@ -176,7 +176,7 @@ public class ProfessorDAO {
                 pstm.setString(4, professor.getEmail());
                 pstm.setString(5, professor.getEspecializacao());
                 pstm.setString(6, professor.getContaBanco());
-                pstm.setInt(7, aluno.getId());
+                pstm.setInt(7, professor.getId());
 
                 pstm.execute();
             }
