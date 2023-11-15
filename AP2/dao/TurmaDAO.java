@@ -90,13 +90,11 @@ public class TurmaDAO {
     }
 
     public ArrayList<Turma> retriveAllTurmasComAlunos(){
-        
         ArrayList<Turma> turmas = new ArrayList<Turma>();
         ProfessorDAO pdao = new ProfessorDAO(connection);
         ModalidadeDAO mdao = new ModalidadeDAO(connection);
         Turma ultimaTurma = null;
-        Aluno ultimoAluno = null;
-
+        
         try {
             String sql = "SELECT t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor, t.fk_modalidade, a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone "
             + "FROM turma as t "
@@ -105,7 +103,7 @@ public class TurmaDAO {
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.execute();
-
+    
                 try(ResultSet rst = pstm.executeQuery()){
                     while (rst.next()) {
                         if (ultimaTurma == null || ultimaTurma.getId() != rst.getInt(1)) {
@@ -117,9 +115,10 @@ public class TurmaDAO {
                             Modalidade modalidade = mdao.consultarModalidadeCodigo(rst.getInt(6));
                             Turma t = new Turma(tur_id, cod_turma, data_turma, hora_turma, modalidade, professor);
                             turmas.add(t);
+                            ultimaTurma = t; // Atualizando a última turma
                         }
-
-                        if((rst.getInt(7) != 0) && (ultimoAluno == null) || ultimoAluno.getId() != rst.getInt(7)){
+    
+                        if (rst.getInt(7) != 0) {
                             int id = rst.getInt(7);
                             String nome = rst.getString(8);
                             String cpf = rst.getString(9);
@@ -137,6 +136,7 @@ public class TurmaDAO {
             throw new RuntimeException(e);
         }
     }
+    
 
     public void atualizarTurma(Turma turma) {
         try {

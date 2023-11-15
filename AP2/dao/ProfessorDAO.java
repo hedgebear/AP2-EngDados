@@ -20,7 +20,7 @@ public class ProfessorDAO {
         this.connection = connection;
     }
 
-    public void create(Professor professor) {
+    public void createProfessor(Professor professor) {
         try {
             String sql = "INSERT INTO professor (nome, codigo_professor, cpf, telefone, email, especializacao, contaBanco) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -118,7 +118,7 @@ public class ProfessorDAO {
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setInt(1,codigo_professor);
 
-                try (ResultSet rst = pstm.getResultSet()) {
+                try (ResultSet rst = pstm.executeQuery()) {
                     if (rst.next()) {
                         int prof_id = rst.getInt(1);
                         String nome = rst.getString(2);

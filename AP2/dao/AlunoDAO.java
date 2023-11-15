@@ -119,25 +119,24 @@ public class AlunoDAO {
 		}
     }
 
-    public ArrayList<Aluno> retriveAllAlunosComTurma(){
-        
+    public ArrayList<Aluno> retriveAllAlunosComTurma() {
         ArrayList<Aluno> alunos = new ArrayList<Aluno>();
         ProfessorDAO pdao = new ProfessorDAO(connection);
         ModalidadeDAO mdao = new ModalidadeDAO(connection);
         
         Turma ultimaTurma = null;
         Aluno ultimoAluno = null;
-
+    
         try {
-            String sql = "SELECT a.id, a.nome, a.matricula, a.cpf,  a.email, a.telefone, t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor, t.fk_modalidade  "
-            + "FROM aluno as a"
-            + "LEFT JOIN aluno_turma AS at ON at.fk_aluno = a.id "
-            + "LEFT JOIN turma AS t ON at.fk_turma = t.id";
-
+            String sql = "SELECT a.id, a.nome, a.matricula, a.cpf, a.email, a.telefone, t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor, t.fk_modalidade "
+                    + "FROM aluno as a "
+                    + "LEFT JOIN aluno_turma AS at ON at.fk_aluno = a.id "
+                    + "LEFT JOIN turma AS t ON at.fk_turma = t.id";
+    
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.execute();
-
-                try(ResultSet rst = pstm.executeQuery()){
+    
+                try (ResultSet rst = pstm.executeQuery()) {
                     while (rst.next()) {
                         if (ultimoAluno == null || ultimoAluno.getId() != rst.getInt(1)) {
                             int id = rst.getInt(1);
@@ -148,17 +147,19 @@ public class AlunoDAO {
                             int telefone = rst.getInt(6);
                             Aluno a = new Aluno(id, nome, cpf, matricula, email, telefone);
                             alunos.add(a);
+                            ultimoAluno = a; // Atualizando o último aluno
                         }
-
-                        if((rst.getInt(7) != 0) && (ultimaTurma == null) || ultimaTurma.getId() != rst.getInt(7)){
+    
+                        if (rst.getInt(7) != 0 && (ultimaTurma == null || ultimaTurma.getId() != rst.getInt(7))) {
                             int tur_id = rst.getInt(7);
                             int cod_turma = rst.getInt(8);
-                            LocalDate data_turma = rst.getObject(9,LocalDate.class);
+                            LocalDate data_turma = rst.getObject(9, LocalDate.class);
                             String hora_turma = rst.getString(10);
                             Professor professor = pdao.consultarProfessorCodigo(rst.getInt(11));
                             Modalidade modalidade = mdao.consultarModalidadeCodigo(rst.getInt(12));
                             Turma t = new Turma(tur_id, cod_turma, data_turma, hora_turma, modalidade, professor);
                             ultimoAluno.addTurma(t);
+                            ultimaTurma = t; // Atualizando a última turma
                         }
                     }
                 }
@@ -168,6 +169,7 @@ public class AlunoDAO {
             throw new RuntimeException(e);
         }
     }
+    
 
 
     // Método para atualização de dados na tabela

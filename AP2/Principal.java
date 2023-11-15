@@ -22,9 +22,21 @@ public class Principal{
         //Instaciando objetos
         Aluno aluno1 = new Aluno("Lucas Fernandes", "00011122200","202203369016","lucas2002mkx@gmail.com",999665643 );
         Fatura fatura1 = new Fatura(2000,LocalDate.of(2023,11,30),0001,aluno1);
-        
+        Aluno aluno2 = new Aluno("Beatriz Turi", "00011122500","202203795211","beatrizturiparaujo@gmail.com",969815773 );
+        Aluno aluno3 = new Aluno("Bingo da Silva", "00011122547","202206995211","bingoS@gmail.com",969885773 );
+                 
+        Professor professor1 = new Professor(1, "Janio quadros",  "11554426958", "cantor", "090909", "cachotto@gmail.com",969885773 );
+        Modalidade modalidad1 = new Modalidade("Natacao", 017);
 
+        Turma turma1 = new Turma(23,LocalDate.of(2023,10,10) , "13:00", modalidad1, professor1);
+        Turma turma2 = new Turma(24,LocalDate.of(2023,10,10) , "14:00", modalidad1, professor1);
         
+        turma1.addAluno(aluno1);
+        turma1.addAluno(aluno2);
+        turma1.addAluno(aluno3);
+        turma2.addAluno(aluno1);
+        turma2.addAluno(aluno2);
+        turma2.addAluno(aluno3);
         // Pessoa pessoa2 = new Pessoa("Gabriel Martinez", "00011122211", LocalDate.of(2001, 2, 05));
         // Telefone telefone20 = new Telefone(TipoTelefone.Celular,55,21,989963144);
         // Telefone telefone21 = new Telefone(TipoTelefone.Residencial,55,21,22298312);
@@ -74,7 +86,13 @@ public class Principal{
         
         // criando os objetos no banco
         adao.createAlunoSemTurma(aluno1);
-        fdao.create(fatura1, aluno1);
+        adao.createAlunoSemTurma(aluno2);
+        adao.createAlunoSemTurma(aluno3);
+        mdao.createComProfessor(modalidad1);
+        pdao.createProfessor(professor1);
+        tdao.createComAluno(turma1, professor1, modalidad1);
+        tdao.createComAluno(turma2, professor1, modalidad1);
+        //eu não acredito em fadas
         // pdao.createComTelefone(pessoa2);
         // pdao.createComTelefone(pessoa3);
         // pdao.createComTelefone(pessoa4);
@@ -86,14 +104,19 @@ public class Principal{
  
         //selecionando todos os objetos do banco
         ArrayList<Aluno> alunos =  adao.retriveAll();
-        ArrayList<Fatura> faturas = fdao.retriveAllFaturas();
+        //ArrayList<Fatura> faturas = fdao.retriveAllFaturas();
+        ArrayList<Turma> turmas = tdao.retriveAllTurmasComAlunos();
         //ArrayList<Pessoa> pessoas =  pdao.retriveAllSemTelefone();
-        System.out.println("Comecei a printar os objetos do BD\n");
+        System.out.println("teste dos alunos\n");
         for (Aluno aluno : alunos) {
             System.out.println(aluno);
         }
-        for (Fatura fatura : faturas) {
-            System.out.println(fatura);
+        // for (Fatura fatura : faturas) {
+        //     System.out.println(fatura);
+        // }
+        System.out.println("Teste de turmas com aluno\n");
+        for (Turma turma : turmas) {
+            System.out.println(turma);
         }
 
         //selecionando apenas um objeto pelo banco
