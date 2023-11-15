@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import modelo.Aluno;
 import modelo.Fatura;
+import dao.AlunoDAO;
 
 
 public class FaturaDAO {

@@ -83,7 +83,7 @@ public class ProfessorDAO {
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setString(1, professor.getNome());
                 pstm.setString(2, professor.getCpf());
-                pstm.setInt(3, professor.getTelefone())
+                pstm.setInt(3, professor.getTelefone());
                 pstm.setString(4, professor.getEmail());
                 pstm.setString(5, professor.getEspecializacao());
                 pstm.setString(6, professor.getContaBanco());
