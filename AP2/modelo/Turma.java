@@ -106,11 +106,11 @@ public class Turma {
         this.alunos = alunos;
     }
 
-    public void addTurma(Aluno aluno) {
+    public void addAlunos(Aluno aluno) {
         this.alunos.add(aluno);
     }
 
-    public void removeTurma(Aluno aluno) {
+    public void removeAlunos(Aluno aluno) {
         this.alunos.remove(aluno);
     }
 	
