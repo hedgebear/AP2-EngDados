@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import modelo.Aluno;
 import modelo.Fatura;
+import dao.aluno;
 
 public class FaturaDAO {
 
@@ -45,9 +46,9 @@ public class FaturaDAO {
     public ArrayList<Fatura> retriveAllFaturas(){
         
         ArrayList<Fatura> faturas = new ArrayList<Fatura>();
-
+        AlunoDAO adao = new AlunoDAO(connection);
 		try {
-			String sql = "SELECT id, valor, data_vencimento, codigo_fatura FROM fatura";
+			String sql = "SELECT id, valor, data_vencimento, codigo_fatura, fk_aluno FROM fatura";
 
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.execute();
@@ -56,7 +57,8 @@ public class FaturaDAO {
                 float valor = rst.getFloat("valor");
                 LocalDate dat_ven = rst.getObject("data_vencimento",LocalDate.class);
                 int cod_fat = rst.getInt("codigo_fatura");
-                Fatura f = new Fatura(fat_id, valor, dat_ven, cod_fat);
+                Aluno fk_aluno = adao.consultarAlunoMatricula(rst.getString("fk_aluno"));
+                Fatura f = new Fatura(fat_id, valor, dat_ven, cod_fat, fk_aluno);
                 faturas.add(f);
 			}
 			return faturas;

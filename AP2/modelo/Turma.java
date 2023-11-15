@@ -8,6 +8,8 @@ public class Turma {
 	private int codigo_turma;
 	private LocalDate data_turma;
 	private String hora_turma;
+	private Modalidade modalidade;
+	private Professor professor;
 
 	public Turma(int id, int codigo_turma, LocalDate data_turma, String hora_turma) {
 		this.id = id;

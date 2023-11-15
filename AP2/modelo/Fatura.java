@@ -8,18 +8,21 @@ public class Fatura {
 	private float valor;
 	private LocalDate data_vencimento;
 	private int codigo_fatura;
+	private Aluno aluno;
 
-	public Fatura(int id, float valor, LocalDate data_vencimento, int codigo_fatura) {
+	public Fatura(int id, float valor, LocalDate data_vencimento, int codigo_fatura, Aluno aluno) {
 		this.id = id;
 		this.valor = valor;
 		this.data_vencimento = data_vencimento;
 		this.codigo_fatura = codigo_fatura;
+		this.aluno = aluno;
 	}
 	
-	public Fatura(float valor, LocalDate data_vencimento, int codigo_fatura) {
+	public Fatura(float valor, LocalDate data_vencimento, int codigo_fatura,Aluno aluno) {
 		this.valor = valor;
 		this.data_vencimento = data_vencimento;
 		this.codigo_fatura = codigo_fatura;
+		this.aluno = aluno;
 	}
 	
 	public int getId() {
@@ -51,6 +54,14 @@ public class Fatura {
 
 	public void setCodigo_Fatura(int codigo_fatura) {
 		this.codigo_fatura = codigo_fatura;
+	}
+
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 
 	@Override

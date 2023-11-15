@@ -34,10 +34,6 @@ public class ModalidadeDAO {
                 try (ResultSet rst = pstm.getGeneratedKeys()) {
                     while (rst.next()) {
                         modalidade.setId(rst.getInt(1));
-                        for (Turma turma : modalidade.getTurmas()) {
-                            TurmaDAO tdao = new TurmaDAO(connection);
-                            tdao.create(turma,professor,modalidade);
-                        }
                     }
                 }
             }

@@ -26,21 +26,17 @@ public class TurmaDAO {
             String sql = "INSERT INTO turma (codigo_turma, data_turma, hora_turma, fk_professor, fk_modalidade) VALUES (?, ?, ?, ?, ?)";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
+                
                 pstm.setInt(1, turma.getCodigo_Turma());
                 pstm.setObject(2, turma.getData_Turma());
                 pstm.setString(3, turma.getHora_Turma());
-                pstm.setInt(4, professor.getCodigo_professor());
+                pstm.setInt(4, turma.professor.getCodigo_professor());
                 pstm.setInt(5, modalidade.getCodigo_Modalidade());
                 pstm.execute();
 
                 try (ResultSet rst = pstm.getGeneratedKeys()) {
                     while (rst.next()) {
-                        professor.setId(rst.getInt(1));
-                        for (Turm turma : professor.getTurmas()) {
-                            TurmaDAO tdao = new TurmaDAO(connection);
-                            tdao.create(turma, professor);
-                        }
+                        turma.setId(rst.getInt(1));
                     }
                 }
             }

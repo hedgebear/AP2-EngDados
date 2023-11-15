@@ -199,9 +199,8 @@ public class AlunoDAO {
     public Aluno consultarAlunoMatricula(String matricula) {
         Aluno a = null;
         try {
-            String sql = "SELECT a.id, a.nome, a.cpf, a.email, a.telefone, f.id, f.valor, f.data_vencimento, f.codigo_fatura "
-                    + "FROM aluno AS a "
-                    + "INNER JOIN fatura AS f ON a.matricula = f.fk_aluno "
+            String sql = "SELECT a.id, a.nome, a.cpf, a.email, a.telefone "
+                    + "FROM aluno "
                     + "WHERE matricula = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
@@ -216,13 +215,6 @@ public class AlunoDAO {
                         String email = rst.getString(5);
                         int telefone = rst.getInt(6);
                         a = new Aluno(a_id, nome, cpf, matricula_recebida, email, telefone);
-                        
-                        int fat_id = rst.getInt(7);
-                        float valor = rst.getInt(8);
-                        LocalDate data_vencimento = rst.getObject(9, LocalDate.class);
-                        int cod_fatura = rst.getInt(10);
-                        Fatura f = new Fatura(fat_id, valor, data_vencimento, cod_fatura);
-                        a.addFatura(f);
                     }
                 }
             }
