@@ -147,7 +147,7 @@ public class AlunoDAO {
                             int telefone = rst.getInt(6);
                             Aluno a = new Aluno(id, nome, cpf, matricula, email, telefone);
                             alunos.add(a);
-                            ultimoAluno = a; // Atualizando o último aluno
+                            ultimoAluno = a; 
                         }
     
                         if (rst.getInt(7) != 0 && (ultimaTurma == null || ultimaTurma.getId() != rst.getInt(7))) {
@@ -159,7 +159,7 @@ public class AlunoDAO {
                             Modalidade modalidade = mdao.consultarModalidadeCodigo(rst.getInt(12));
                             Turma t = new Turma(tur_id, cod_turma, data_turma, hora_turma, modalidade, professor);
                             ultimoAluno.addTurma(t);
-                            ultimaTurma = t; // Atualizando a última turma
+                            ultimaTurma = t; 
                         }
                     }
                 }
