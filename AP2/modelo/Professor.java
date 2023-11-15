@@ -33,10 +33,6 @@ public class Professor {
         this.telefone = telefone;
     }
 
-    public Professor(int prof_id, int cod_prof, String nome_prof, String cpf_prof, String tel_prof, String email_prof,
-            String espec_prof, String conta_prof) {
-    }
-
     public int getId() {
         return id;
     }
