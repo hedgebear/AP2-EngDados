@@ -3,13 +3,13 @@ package modelo;
 public class Professor {
 
     private int id;
-    private int codigo_professor;
     private String nome;
+    private int codigo_professor;
     private String cpf;
-    private String especializacao;
-    private String contaBanco;
-    private String email;
     private int telefone;
+    private String especializacao;
+    private String email;
+    private String contaBanco;
 
  
         public Professor(int id, int codigo_professor, String nome, String cpf, String especializacao, String contaBanco, String email, int telefone) {

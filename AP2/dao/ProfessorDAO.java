@@ -112,12 +112,12 @@ public class ProfessorDAO {
     public Professor consultarProfessorCodigo(int codigo_professor) {
         Professor p = null;
         try {
-            String sql = "SELECT id, codigo_professor, nome, cpf, especializacao, contaBanco, email, telefone FROM professor " 
-                    + "WHERE codigo_professor = ?";
-
+            String sql = "SELECT id, nome, cpf, especializacao, contaBanco, email, telefone FROM professor " 
+                        + "WHERE codigo_professor = ?";
+    
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.setInt(1,codigo_professor);
-
+                pstm.setInt(1, codigo_professor);
+    
                 try (ResultSet rst = pstm.executeQuery()) {
                     if (rst.next()) {
                         int prof_id = rst.getInt(1);

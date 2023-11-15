@@ -106,7 +106,7 @@ public class ModalidadeDAO {
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setInt(1,codigo_modalidade);
 
-                try (ResultSet rst = pstm.getResultSet()) {
+                try (ResultSet rst = pstm.executeQuery()) {
                     if (rst.next()) {
                         int m_id = rst.getInt(1);
                         String nome = rst.getString(2);
