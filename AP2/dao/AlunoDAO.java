@@ -97,7 +97,7 @@ public class AlunoDAO {
         ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 
 		try {
-			String sql = "SELECT id, nome, cpf, matricula, email, telefone FROM aluno ";
+			String sql = "SELECT id, nome, matricula, cpf,  email, telefone FROM aluno ";
 
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.execute();
@@ -105,8 +105,8 @@ public class AlunoDAO {
                 while (rst.next()){
                     int id = rst.getInt("id");
                     String nome = rst.getString("nome");
-                    String cpf = rst.getString("cpf");
                     String matricula = rst.getString("matricula");
+                    String cpf = rst.getString("cpf");
                     String email = rst.getString("email");
                     int telefone = rst.getInt("telefone");
                     Aluno a = new Aluno(id, nome, cpf, matricula, email, telefone);
@@ -129,7 +129,7 @@ public class AlunoDAO {
         Aluno ultimoAluno = null;
 
         try {
-            String sql = "SELECT a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone, t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor, t.fk_modalidade  "
+            String sql = "SELECT a.id, a.nome, a.matricula, a.cpf,  a.email, a.telefone, t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor, t.fk_modalidade  "
             + "FROM aluno as a"
             + "LEFT JOIN aluno_turma AS at ON at.fk_aluno = a.id "
             + "LEFT JOIN turma AS t ON at.fk_turma = t.id";
@@ -142,8 +142,8 @@ public class AlunoDAO {
                         if (ultimoAluno == null || ultimoAluno.getId() != rst.getInt(1)) {
                             int id = rst.getInt(1);
                             String nome = rst.getString(2);
-                            String cpf = rst.getString(3);
-                            String matricula = rst.getString(4);
+                            String matricula = rst.getString(3);
+                            String cpf = rst.getString(4);
                             String email = rst.getString(5);
                             int telefone = rst.getInt(6);
                             Aluno a = new Aluno(id, nome, cpf, matricula, email, telefone);
@@ -218,8 +218,8 @@ public class AlunoDAO {
                     if (rst.next()) {
                         int a_id = rst.getInt(1);
                         String nome = rst.getString(2);
-                        String cpf = rst.getString(3);
                         String matricula_recebida = matricula;
+                        String cpf = rst.getString(3);
                         String email = rst.getString(4);
                         int telefone = rst.getInt(5);
                         a = new Aluno(a_id, nome, cpf, matricula_recebida, email, telefone);
