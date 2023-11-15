@@ -112,7 +112,6 @@ public class ModalidadeDAO {
                         int m_id = rst.getInt(1);
                         String nome = rst.getString(2);
                         m = new Modalidade(m_id, nome, codigo_modalidade);
-                        
                     }
                 }
             }

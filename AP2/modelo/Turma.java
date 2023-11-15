@@ -1,6 +1,7 @@
 package modelo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Turma {
 
@@ -10,6 +11,7 @@ public class Turma {
 	private String hora_turma;
 	private Modalidade modalidade;
 	private Professor professor;
+	ArrayList<Aluno> alunos;
 
 	public Turma(int id, int codigo_turma, LocalDate data_turma, String hora_turma, Modalidade modalidade, Professor professor) {
 		this.id = id;
@@ -18,6 +20,7 @@ public class Turma {
 		this.hora_turma = hora_turma;
 		this.modalidade = modalidade;
 		this.professor = professor;
+		this.alunos = new ArrayList<Aluno>();
 	}
 
 	public Turma(int codigo_turma, LocalDate data_turma, String hora_turma, Modalidade modalidade, Professor professor) {
@@ -26,6 +29,25 @@ public class Turma {
 		this.hora_turma = hora_turma;
 		this.modalidade = modalidade;
 		this.professor = professor;
+		this.alunos = new ArrayList<Aluno>();
+	}
+	public Turma(int id, int codigo_turma, LocalDate data_turma, String hora_turma, Modalidade modalidade, Professor professor,ArrayList<Aluno> alunos) {
+		this.id = id;
+		this.codigo_turma = codigo_turma;
+		this.data_turma = data_turma;
+		this.hora_turma = hora_turma;
+		this.modalidade = modalidade;
+		this.professor = professor;
+		this.alunos = alunos;
+	}
+
+	public Turma(int codigo_turma, LocalDate data_turma, String hora_turma, Modalidade modalidade, Professor professor,ArrayList<Aluno> alunos) {
+		this.codigo_turma = codigo_turma;
+		this.data_turma = data_turma;
+		this.hora_turma = hora_turma;
+		this.modalidade = modalidade;
+		this.professor = professor;
+		this.alunos = alunos;
 	}
 
 	public int getId() {

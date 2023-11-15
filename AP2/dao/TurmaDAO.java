@@ -21,7 +21,7 @@ public class TurmaDAO {
         this.connection = connection;
     }
 
-    public void create(Turma turma, Professor professor, Modalidade modalidade) {
+    public void createSemAluno(Turma turma, Professor professor, Modalidade modalidade) {
         try {
             String sql = "INSERT INTO turma (codigo_turma, data_turma, hora_turma, fk_professor, fk_modalidade) VALUES (?, ?, ?, ?, ?)";
 
@@ -30,7 +30,7 @@ public class TurmaDAO {
                 pstm.setInt(1, turma.getCodigo_Turma());
                 pstm.setObject(2, turma.getData_Turma());
                 pstm.setString(3, turma.getHora_Turma());
-                pstm.setInt(4, turma.professor.getCodigo_professor());
+                pstm.setInt(4, professor.getCodigo_professor());
                 pstm.setInt(5, modalidade.getCodigo_Modalidade());
                 pstm.execute();
 
@@ -45,12 +45,39 @@ public class TurmaDAO {
         }
     }
 
+    public void createComAluno(Turma turma, Professor professor, Modalidade modalidade) {
+        try {
+            String sql = "INSERT INTO turma (codigo_turma, data_turma, hora_turma, fk_professor, fk_modalidade) VALUES (?, ?, ?, ?, ?)";
+
+            try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                
+                pstm.setInt(1, turma.getCodigo_Turma());
+                pstm.setObject(2, turma.getData_Turma());
+                pstm.setString(3, turma.getHora_Turma());
+                pstm.setInt(4, professor.getCodigo_professor());
+                pstm.setInt(5, modalidade.getCodigo_Modalidade());
+                pstm.execute();
+
+                try (ResultSet rst = pstm.getGeneratedKeys()) {
+                    while (rst.next()) {
+                        turma.setId(rst.getInt(1));
+                        for(Aluno Aluno : turma.getAlunos())
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public ArrayList<Turma> retriveAllTurmas(){
         
         ArrayList<Turma> turma = new ArrayList<Turma>();
+        ProfessorDAO pdao = new ProfessorDAO(connection);
+        ModalidadeDAO mdao = new ModalidadeDAO(connection);
 
         try {
-            String sql = "SELECT id, codigo_turma, data_turma, hora_turma FROM turma";
+            String sql = "SELECT id, codigo_turma, data_turma, hora_turma, fk_professor, fk_modalidade FROM turma";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.execute();
@@ -59,7 +86,9 @@ public class TurmaDAO {
                 int cod_turma = rst.getInt("codigo_turma");
                 LocalDate data_turma = rst.getObject("data_turma",LocalDate.class);
                 String hora_turma = rst.getString("hora_turma");
-                Turma t = new Turma(tur_id, cod_turma, data_turma, hora_turma);
+                Professor professor = pdao.consultarProfessorCodigo(rst.getInt("fk_professor"));
+                Modalidade modalidade = mdao.consultarModalidadeCodigo(rst.getInt("fk_modalidade"));
+                Turma t = new Turma(tur_id, cod_turma, data_turma, hora_turma, modalidade, professor);
                 turma.add(t);
             }
             return turma;
@@ -99,8 +128,11 @@ public class TurmaDAO {
 
     public Turma consultarTurmaEspc(Turma turma) {
         Turma t = null;
+        ProfessorDAO pdao = new ProfessorDAO(connection);
+        ModalidadeDAO mdao = new ModalidadeDAO(connection);
         try {
-            String sql = "SELECT t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor , t.fk_modalidade"
+            String sql = "SELECT t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor , t.fk_modalidade "
+                    + "FROM turma "
                     + "WHERE id = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
@@ -112,7 +144,9 @@ public class TurmaDAO {
                         int cod_turma = rst.getInt(8);
                         LocalDate data_turma = rst.getObject(9, LocalDate.class);
                         String hora_turma = rst.getString(10);
-                        t = new Turma(tur_id, cod_turma, data_turma, hora_turma);
+                        Professor professor = pdao.consultarProfessorCodigo(rst.getInt("fk_professor"));
+                        Modalidade modalidade = mdao.consultarModalidadeCodigo(rst.getInt("fk_modalidade"));
+                        t = new Turma(tur_id, cod_turma, data_turma, hora_turma, modalidade, professor);
                     }
                 }
             }
