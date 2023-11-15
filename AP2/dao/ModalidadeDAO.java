@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 
+import modelo.Aluno;
 import modelo.Modalidade;
 import modelo.Professor;
 import modelo.Turma;
@@ -42,9 +43,9 @@ public class ModalidadeDAO {
         }
     }
 
-    public ArrayList<Modalidade> retriveAllSemTurma(){
+     public ArrayList<Modalidade> retriveAll(){
         
-        ArrayList<Modalidade> modalidade = new ArrayList<Modalidade>();
+        ArrayList<Modalidade> modalidades = new ArrayList<Modalidade>();
 
 		try {
 			String sql = "SELECT id, nome, codigo_modalidade FROM modalidade";
@@ -52,91 +53,21 @@ public class ModalidadeDAO {
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.execute();
                 ResultSet rst = pstm.getResultSet();
-                int mod_id = rst.getInt("id");
-                String nome = rst.getString("nome");
-                int cod_mod = rst.getInt("codigo_modalidade");
-                Modalidade m = new Modalidade(mod_id, nome, cod_mod);
-                modalidade.add(m);
+                while (rst.next()){
+                    int id = rst.getInt("id");
+                    String nome = rst.getString("nome");
+                    int codigo_modalidade = rst.getInt("codigo_modalidade");
+                    Modalidade m = new Modalidade(id, nome, codigo_modalidade);
+                    modalidades.add(m);
+                }
 			}
-			return modalidade;
+			return modalidades;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
     }
 
-    public ArrayList<Modalidade> retriveAllComTurma(){
-        
-        ArrayList<Modalidade> modalidade = new ArrayList<Modalidade>();
-        Modalidade ultimo = null;
-
-		try {
-			String sql = "SELECT m.id, m.nome, m.codigo_modalidade, t.id, t.codigo_turma, t.data_turma, t.hora_turma"
-                + "FROM modalidade as m"
-                + "INNER JOIN turma as t on m.codigo_modalidade = t.fk_modalidade";
-			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-				pstm.execute();
-                try (ResultSet rst = pstm.getResultSet()) {
-                    while (rst.next()) {
-                        if (ultimo == null || ultimo.getId() != rst.getInt(1)) {
-                            int mod_id = rst.getInt(1);
-                            String nome = rst.getString(2);
-                            int cod_mod = rst.getInt(3);
-                            Modalidade m = new Modalidade(mod_id, nome, cod_mod);
-                            modalidade.add(m);
-                            ultimo = m;
-                        }
-                        int tur_id = rst.getInt(4);
-                        float codigo_turma = rst.getInt(5);
-                        LocalDate data_turma = rst.getObject(6, LocalDate.class);
-                        String hora_turma = rst.getString(7);
-                        Turma t = new Turma(tur_id, codigo_turma, data_turma, hora_turma);
-                        ultimo.addTurma(t);
-                    }
-                }            
-			}
-			return modalidade;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-    }
-
-    public ArrayList<Modalidade> retriveAllComSemTurma(){
-        
-        ArrayList<Modalidade> modalidade = new ArrayList<Modalidade>();
-        Modalidade ultimo = null;
-
-		try {
-			String sql = "SELECT m.id, m.nome, m.codigo_modalidade, t.id, t.codigo_turma, t.data_turma, t.hora_turma"
-                + "FROM modalidade as m"
-                + "LEFT JOIN turma as t on m.codigo_modalidade = t.fk_modalidade";
-			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-				pstm.execute();
-                try (ResultSet rst = pstm.getResultSet()) {
-                    while (rst.next()) {
-                        if (ultimo == null || ultimo.getId() != rst.getInt(1)) {
-                            int mod_id = rst.getInt(1);
-                            String nome = rst.getString(2);
-                            int cod_mod = rst.getInt(3);
-                            Modalidade m = new Modalidade(mod_id, nome, cod_mod);
-                            modalidade.add(m);
-                            ultimo = m;
-                        }
-                        if(rst.getInt(4) != 0){
-                            int tur_id = rst.getInt(4);
-                            float codigo_turma = rst.getInt(5);
-                            LocalDate data_turma = rst.getObject(6, LocalDate.class);
-                            String hora_turma = rst.getString(7);
-                            Turma t = new Turma(tur_id, codigo_turma, data_turma, hora_turma);
-                            ultimo.addTurma(t);
-                        }
-                    }
-                }            
-			}
-			return modalidade;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-    }
+   
 
     public void atualizarModalidade(Modalidade modalidade) {
         try {
@@ -167,12 +98,10 @@ public class ModalidadeDAO {
         }
     }
 
-    public Professor consultarModalidadeCodigo(int codigo_modalidade) {
-        Professor p = null;
+    public Modalidade consultarModalidadeCodigo(int codigo_modalidade) {
+        Modalidade m = null;
         try {
-            String sql = "SELECT m.id, m.nome, t.id, t.codigo_turma, t.data_turma, t.hora_turma"
-                    + "FROM modalidade as m"
-                    + "INNER JOIN turma as t on m.codigo_modalidade = t.fk_modalidade";
+            String sql = "SELECT id, nome, codigo_modalidade FROM modalidade"
                     + "WHERE codigo_modalidade = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
@@ -182,14 +111,8 @@ public class ModalidadeDAO {
                     if (rst.next()) {
                         int m_id = rst.getInt(1);
                         String nome = rst.getString(2);
-                        m = new Modalidade(m_id, nome);
+                        m = new Modalidade(m_id, nome, codigo_modalidade);
                         
-                        int tur_id = rst.getInt(3);
-                        float codigo_turma = rst.getInt(4);
-                        LocalDate data_turma = rst.getObject(5, LocalDate.class);
-                        String hora_turma = rst.getString(6);
-                        Turma t = new Turma(tur_id, codigo_turma, data_turma, hora_turma);
-                        m.addTurma(t);
                     }
                 }
             }
