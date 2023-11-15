@@ -64,9 +64,10 @@ public class ProfessorDAO {
                     String nome = rst.getString("nome");
                     String cpf = rst.getString("cpf");
                     String especializacao = rst.getString("especializacao");
+                    String contaBanco = rst.getString("contaBanco");
                     String email = rst.getString("email");
                     int telefone = rst.getInt("telefone");
-                    Professor p = new Professor(id, codigo_professor, nome, cpf, especializacao, email, telefone);
+                    Professor p = new Professor(id, codigo_professor, nome, cpf, especializacao, contaBanco, email, telefone);
                     professores.add(p);
                 }
 			}
@@ -113,9 +114,7 @@ public class ProfessorDAO {
     public Professor consultarProfessorCodigo(int codigo_professor) {
         Professor p = null;
         try {
-            String sql = "SELECT p.id, p.nome, p.cpf, p.telefone, p.email, p.especializacao, p.contaBanco, t.id, t.codigo_turma, t.data_turma, t.hora_turma" 
-                    + "FROM professor as p"
-                    + "INNER JOIN turma as t on p.codigo_professor = t.fk_professor";
+            String sql = "SELECT id, codigo_professor, nome, cpf, especializacao, contaBanco, email, telefone FROM professor" 
                     + "WHERE codigo_professor = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
@@ -126,18 +125,12 @@ public class ProfessorDAO {
                         int prof_id = rst.getInt(1);
                         String nome = rst.getString(2);
                         String cpf = rst.getString(3);
-                        int telefone = rst.getInt(4);
-                        String email = rst.getString(5);
-                        String especializacao = rst.getString(6);
-                        String contaBanco = rst.getString(7);
+                        String especializacao = rst.getString(4);
+                        String contaBanco = rst.getString(5);
+                        String email = rst.getString(6);
+                        int telefone = rst.getInt(7);
                         p = new Professor(prof_id, codigo_professor, nome, cpf, especializacao, contaBanco, email, telefone);
                         
-                        int tur_id = rst.getInt(9);
-                        int codigo_turma = rst.getInt(10);
-                        LocalDate data_turma = rst.getObject(11, LocalDate.class);
-                        String hora_turma = rst.getString(12);
-                        Turma t = new Turma(tur_id, codigo_turma, data_turma, hora_turma);
-                        p.addTurma(t);
                     }
                 }
             }
