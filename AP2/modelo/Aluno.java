@@ -99,7 +99,7 @@ public class Aluno {
 		this.telefone = telefone;
 	}
 
-	private ArrayList<Turma> getTurmas() {
+	public ArrayList<Turma> getTurmas() {
         return turmas;
     }
 
