@@ -173,7 +173,7 @@ public class TurmaDAO {
         ProfessorDAO pdao = new ProfessorDAO(connection);
         ModalidadeDAO mdao = new ModalidadeDAO(connection);
         try {
-            String sql = "SELECT t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor , t.fk_modalidade "
+            String sql = "SELECT id, codigo_turma, data_turma, hora_turma, fk_professor , fk_modalidade "
                     + "FROM turma "
                     + "WHERE id = ?";
 
@@ -182,12 +182,12 @@ public class TurmaDAO {
 
                 try (ResultSet rst = pstm.getResultSet()) {
                     if (rst.next()) {
-                        int tur_id = rst.getInt(7);
-                        int cod_turma = rst.getInt(8);
-                        LocalDate data_turma = rst.getObject(9, LocalDate.class);
-                        String hora_turma = rst.getString(10);
-                        Professor professor = pdao.consultarProfessorCodigo(rst.getInt("fk_professor"));
-                        Modalidade modalidade = mdao.consultarModalidadeCodigo(rst.getInt("fk_modalidade"));
+                        int tur_id = rst.getInt(1);
+                        int cod_turma = rst.getInt(2);
+                        LocalDate data_turma = rst.getObject(3, LocalDate.class);
+                        String hora_turma = rst.getString(4);
+                        Professor professor = pdao.consultarProfessorCodigo(rst.getInt(5));
+                        Modalidade modalidade = mdao.consultarModalidadeCodigo(rst.getInt(6));
                         t = new Turma(tur_id, cod_turma, data_turma, hora_turma, modalidade, professor);
                     }
                 }
@@ -200,7 +200,6 @@ public class TurmaDAO {
 
     public Turma consultarTurmaEspcComAlunos(Turma turma) {
         Turma t = null;
-        Turma ultima = null;
         ProfessorDAO pdao = new ProfessorDAO(connection);
         ModalidadeDAO mdao = new ModalidadeDAO(connection);
         try {
@@ -215,22 +214,26 @@ public class TurmaDAO {
 
                 try (ResultSet rst = pstm.getResultSet()) {
                     while(rst.next()) {
-                        int tur_id = rst.getInt(7);
-                        int cod_turma = rst.getInt(8);
-                        LocalDate data_turma = rst.getObject(9, LocalDate.class);
-                        String hora_turma = rst.getString(10);
-                        Professor professor = pdao.consultarProfessorCodigo(rst.getInt("fk_professor"));
-                        Modalidade modalidade = mdao.consultarModalidadeCodigo(rst.getInt("fk_modalidade"));
-                        t = new Turma(tur_id, cod_turma, data_turma, hora_turma, modalidade, professor);
-
-                        int id = rst.getInt(7);
-                        String nome = rst.getString(8);
-                        String cpf = rst.getString(9);
-                        String matricula = rst.getString(10);
-                        String email = rst.getString(11);
-                        int telefone = rst.getInt(12);
-                        Aluno a = new Aluno(id, nome, cpf, matricula, email, telefone);
-                        t.addAluno(a);
+                        if (t == null) {
+                            int tur_id = rst.getInt(1);
+                            int cod_turma = rst.getInt(2);
+                            LocalDate data_turma = rst.getObject(3, LocalDate.class);
+                            String hora_turma = rst.getString(4);
+                            Professor professor = pdao.consultarProfessorCodigo(rst.getInt(5));
+                            Modalidade modalidade = mdao.consultarModalidadeCodigo(rst.getInt(6));
+                            t = new Turma(tur_id, cod_turma, data_turma, hora_turma, modalidade, professor);
+                        }
+                        
+                        if (rst.getInt(7) != 0) {
+                            int id = rst.getInt(7);
+                            String nome = rst.getString(8);
+                            String cpf = rst.getString(9);
+                            String matricula = rst.getString(10);
+                            String email = rst.getString(11);
+                            int telefone = rst.getInt(12);
+                            Aluno a = new Aluno(id, nome, cpf, matricula, email, telefone);
+                            t.addAluno(a);
+                        }
                     }
                 }
             }
