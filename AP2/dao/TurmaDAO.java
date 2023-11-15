@@ -97,7 +97,7 @@ public class TurmaDAO {
         
         try {
             String sql = "SELECT t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor, t.fk_modalidade, a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone "
-            + "FROM turma as t"
+            + "FROM turma as t "
             + "LEFT JOIN aluno_turma AS at ON at.fk_turma = t.id "
             + "LEFT JOIN aluno AS a ON at.fk_aluno = a.id";
 
