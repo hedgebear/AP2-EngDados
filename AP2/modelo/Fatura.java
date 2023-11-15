@@ -68,7 +68,7 @@ public class Fatura {
     public String toString() {
         return "{'fatura':{'id': " + this.id + ", 'valor': " + this.valor +
                ", 'data_vencimento': '" + this.data_vencimento + "', 'codigo_fatura': " + this.codigo_fatura +
-               ", '" + this.aluno.toString() +" '" "}}";
+               ", '" + this.aluno.toString() +" '"+ "}}";
     }
 	
 }
