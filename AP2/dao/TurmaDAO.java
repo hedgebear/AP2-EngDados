@@ -63,7 +63,7 @@ public class TurmaDAO {
                     while (rst.next()) {
                         turma.setId(rst.getInt(1));
                         for(Aluno aluno : turma.getAlunos()){
-                            createParticipacao(turma, aluno);
+                            createPresenca(turma, aluno);
                         }
                     }
                 }
@@ -73,14 +73,14 @@ public class TurmaDAO {
         }
     }
 
-    public void createParticipacao(Turma turma, Aluno aluno){
+    public void createPresenca(Turma turma, Aluno aluno){
         try{
-            String sql = "INSERT INTO aluno_turma (fk_turma, fk_aluno) VALUES (?, ?)";
+            String sql = "INSERT INTO aluno_turma (fk_aluno, fk_turma) VALUES (?, ?)";
 
             try(PreparedStatement pstm = connection.prepareStatement(sql)){
                 
-                pstm.setInt(1, turma.getId());
-                pstm.setInt(2, aluno.getId());
+                pstm.setString(1, aluno.getMatricula());
+                pstm.setInt(2, turma.getCodigo_Turma());
 
                 pstm.execute();
             }
@@ -137,7 +137,7 @@ public class TurmaDAO {
             throw new RuntimeException(e);
         }
     }
-    
+
     public void atualizarTurma(Turma turma) {
         try {
             String sql = "UPDATE turma SET data_turma = ?, hora_turma = ? WHERE codigo_turma = ?";

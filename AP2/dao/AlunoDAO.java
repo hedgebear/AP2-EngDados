@@ -21,7 +21,7 @@ public class AlunoDAO {
         this.connection = connection;
     }
     // metodo para criar o aluno
-    public void createAluno(Aluno aluno) {
+    public void createAlunoSemTurma(Aluno aluno) {
         try {
             String sql = "INSERT INTO aluno (nome, cpf, matricula, email, telefone) VALUES (?, ?, ?, ?, ?)";
 
@@ -45,6 +45,52 @@ public class AlunoDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public void createAlunoComTurma(Aluno aluno) {
+        try {
+            String sql = "INSERT INTO turma (nome, cpf, matricula, email, telefone) VALUES (?, ?, ?, ?, ?)";
+
+            try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                
+                pstm.setString(1, aluno.getNome());
+                pstm.setString(2, aluno.getCpf());
+                pstm.setString(3, aluno.getMatricula());
+                pstm.setString(4, aluno.getEmail());
+                pstm.setInt(5, aluno.getTelefone());
+
+                pstm.execute();
+
+                try (ResultSet rst = pstm.getGeneratedKeys()) {
+                    while (rst.next()) {
+                        aluno.setId(rst.getInt(1));
+                        for(Turma turma : aluno.getTurmas()){
+                            createPresenca(aluno, turma);
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void createPresenca(Aluno aluno, Turma turma){
+        try{
+            String sql = "INSERT INTO aluno_turma (fk_aluno, fk_turma) VALUES (?, ?)";
+
+            try(PreparedStatement pstm = connection.prepareStatement(sql)){
+                
+                pstm.setString(1, aluno.getMatricula());
+                pstm.setInt(2, turma.getCodigo_Turma());
+
+                pstm.execute();
+            }
+        } catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+
     // metodo para pegar todos
     public ArrayList<Aluno> retriveAll(){
         
