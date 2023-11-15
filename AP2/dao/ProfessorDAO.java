@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import modelo.Professor;
 import modelo.Turma;
+import modelo.Aluno;
 import modelo.Modalidade;
 
 public class ProfessorDAO {
@@ -47,120 +48,32 @@ public class ProfessorDAO {
         }
     }
 
-    public ArrayList<Professor> retriveAllSemTurma(){
+    public ArrayList<Professor> retriveAll(){
+        
+        ArrayList<Professor> professores = new ArrayList<Professor>();
 
-        ArrayList<Professor> professor = new ArrayList<Professor>();
+		try {
+			String sql = "SELECT id, codigo_professor, nome, cpf, especializacao, contaBanco, email, telefone FROM professor";
 
-        try {
-            String sql = "SELECT id, nome, codigo_professor, cpf, telefone, email, especializacao, contaBanco FROM professor";
-
-            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.execute();
+			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+				pstm.execute();
                 ResultSet rst = pstm.getResultSet();
-                int prof_id = rst.getInt("id");
-                int cod_prof = rst.getInt("codigo_professor");
-                String nome_prof = rst.getString("nome");
-                String cpf_prof = rst.getString("cpf");
-                String espec_prof = rst.getString("especializacao");
-                String conta_prof = rst.getString("contaBanco");
-                String email_prof = rst.getString("email");
-                int tel_prof = rst.getInt("telefone");
-                Professor p = new Professor(prof_id, cod_prof, nome_prof, cpf_prof, espec_prof, conta_prof, email_prof, tel_prof);
-                professor.add(p);
-            }
-            return professor;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public ArrayList<Professor> retriveAllComTurma(){
-
-        ArrayList<Professor> professor = new ArrayList<Professor>();
-        Professor ultimo = null;
-        try {
-            String sql = "SELECT p.id, p.nome, p.codigo_professor, p.cpf, p.telefone, p.email, p.especializacao, p.contaBanco, t.id, t.codigo_turma, t.data_turma, t.hora_turma" 
-            + "FROM professor as p"
-            + "INNER JOIN turma as t on p.codigo_professor = t.fk_professor";
-
-            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.execute();
-
-                try (ResultSet rst = pstm.getResultSet()) {
-                    while (rst.next()) {
-                        if (ultimo == null || ultimo.getId() != rst.getInt(1)) {
-                            int prof_id = rst.getInt(1);
-                            String nome = rst.getString(2);
-                            int codigo_prof = rst.getInt(3);
-                            String cpf = rst.getString(4);
-                            int telefone = rst.getInt(5);
-                            String email = rst.getString(6);
-                            String especializacao = rst.getString(7);
-                            String contaBanco = rst.getString(8);
-                            Professor p = new Professor(prof_id, codigo_prof, nome, cpf, especializacao, contaBanco, email, telefone);
-                            professor.add(p);
-                            ultimo = p;
-                        }
-                        int tur_id = rst.getInt(9);
-                        int codigo_turma = rst.getInt(10);
-                        LocalDate data_turma = rst.getObject(11, LocalDate.class);
-                        String hora_turma = rst.getString(12);
-                        Turma t = new Turma(tur_id, codigo_turma, data_turma, hora_turma);
-                        ultimo.addTurma(t);
+                while (rst.next()){
+                    int id = rst.getInt("id");
+                    int codigo_professor = rst.getInt("codigo_professor");
+                    String nome = rst.getString("nome");
+                    String cpf = rst.getString("cpf");
+                    String especializacao = rst.getString("especializacao");
+                    String email = rst.getString("email");
+                    int telefone = rst.getInt("telefone");
+                    Professor p = new Professor(id, codigo_professor, nome, cpf, especializacao, email, telefone);
+                    professores.add(p);
                 }
-            }
-            return professor;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-            }
-        }
-
-    }
-
-    public ArrayList<Professor> retriveAllComSemTurma(){
-
-        ArrayList<Professor> professor = new ArrayList<Professor>();
-        Professor ultimo = null;
-        try {
-            String sql = "SELECT p.id, p.nome, p.codigo_professor, p.cpf, p.telefone, p.email, p.especializacao, p.contaBanco, t.id, t.codigo_turma, t.data_turma, t.hora_turma" 
-            + "FROM professor as p"
-            + "LEFT JOIN turma as t on p.codigo_professor = t.fk_professor";
-
-            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.execute();
-
-                try (ResultSet rst = pstm.getResultSet()) {
-                    while (rst.next()) {
-                        if (ultimo == null || ultimo.getId() != rst.getInt(1)) {
-                            int prof_id = rst.getInt(1);
-                            String nome = rst.getString(2);
-                            int codigo_prof = rst.getInt(3);
-                            String cpf = rst.getString(4);
-                            int telefone = rst.getInt(5);
-                            String email = rst.getString(6);
-                            String especializacao = rst.getString(7);
-                            String contaBanco = rst.getString(8);
-                            Professor p = new Professor(prof_id, codigo_prof, nome, cpf, especializacao, contaBanco, email, telefone);
-                            professor.add(p);
-                            ultimo = p;
-                        }
-
-                        if(rst.getInt(7) != 0){
-                            int tur_id = rst.getInt(9);
-                            int codigo_turma = rst.getInt(10);
-                            LocalDate data_turma = rst.getObject(11, LocalDate.class);
-                            String hora_turma = rst.getString(12);
-                            Turma t = new Turma(tur_id, codigo_turma, data_turma, hora_turma);
-                            ultimo.addTurma(t);
-                        }
-                }
-            }
-            return professor;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-            }
-        }
-
+			}
+			return professores;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
     }
 
     public void atualizarProfessor(Professor professor) {
