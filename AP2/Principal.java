@@ -73,8 +73,8 @@ public class Principal{
         TurmaDAO tdao = new TurmaDAO(connection);
         
         // criando os objetos no banco
-        //adao.createAluno(aluno1);
-        //fdao.create(fatura1, aluno1);
+        adao.createAluno(aluno1);
+        fdao.create(fatura1, aluno1);
         // pdao.createComTelefone(pessoa2);
         // pdao.createComTelefone(pessoa3);
         // pdao.createComTelefone(pessoa4);

@@ -31,7 +31,7 @@ public class Turma {
 		this.professor = professor;
 		this.alunos = new ArrayList<Aluno>();
 	}
-	
+
 	public Turma(int id, int codigo_turma, LocalDate data_turma, String hora_turma, Modalidade modalidade, Professor professor,ArrayList<Aluno> alunos) {
 		this.id = id;
 		this.codigo_turma = codigo_turma;
@@ -99,7 +99,7 @@ public class Turma {
 		this.professor = professor;
 	}
 
-    private ArrayList<Aluno> getAlunos() {
+    public ArrayList<Aluno> getAlunos(){
         return alunos;
     }
 
