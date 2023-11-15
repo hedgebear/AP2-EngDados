@@ -11,7 +11,7 @@ public class Turma {
 	private String hora_turma;
 	private Modalidade modalidade;
 	private Professor professor;
-	ArrayList<Aluno> alunos;
+	private ArrayList<Aluno> alunos;
 
 	public Turma(int id, int codigo_turma, LocalDate data_turma, String hora_turma, Modalidade modalidade, Professor professor) {
 		this.id = id;
@@ -31,6 +31,7 @@ public class Turma {
 		this.professor = professor;
 		this.alunos = new ArrayList<Aluno>();
 	}
+	
 	public Turma(int id, int codigo_turma, LocalDate data_turma, String hora_turma, Modalidade modalidade, Professor professor,ArrayList<Aluno> alunos) {
 		this.id = id;
 		this.codigo_turma = codigo_turma;
@@ -105,12 +106,13 @@ public class Turma {
     public void setAlunos(ArrayList<Aluno> alunos) {
         this.alunos = alunos;
     }
-
-    public void addAlunos(Aluno aluno) {
+	
+    public void addAluno(Aluno aluno) {
         this.alunos.add(aluno);
     }
 
-    public void removeAlunos(Aluno aluno) {
+    public void removeAluno(Aluno aluno) {
+
         this.alunos.remove(aluno);
     }
 	

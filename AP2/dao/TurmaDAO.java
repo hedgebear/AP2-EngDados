@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import modelo.Turma;
 import modelo.Professor;
 import modelo.Modalidade;
+import modelo.Aluno;
 
 
 public class TurmaDAO {
@@ -61,7 +62,9 @@ public class TurmaDAO {
                 try (ResultSet rst = pstm.getGeneratedKeys()) {
                     while (rst.next()) {
                         turma.setId(rst.getInt(1));
-                        for(Aluno Aluno : turma.getAlunos())
+                        for(Aluno aluno : turma.getAlunos()){
+                            createParticipacao(turma, aluno);
+                        }
                     }
                 }
             }
@@ -70,28 +73,66 @@ public class TurmaDAO {
         }
     }
 
-    public ArrayList<Turma> retriveAllTurmas(){
+    public void createParticipacao(Turma turma, Aluno aluno){
+        try{
+            String sql = "INSERT INTO aluno_turma (fk_turma, fk_aluno) VALUES (?, ?)";
+
+            try(PreparedStatement pstm = connection.prepareStatement(sql)){
+                
+                pstm.setInt(1, turma.getId());
+                pstm.setInt(2, aluno.getId());
+
+                pstm.execute();
+            }
+        } catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<Turma> retriveAllTurmasComAlunos(){
         
-        ArrayList<Turma> turma = new ArrayList<Turma>();
+        ArrayList<Turma> turmas = new ArrayList<Turma>();
         ProfessorDAO pdao = new ProfessorDAO(connection);
         ModalidadeDAO mdao = new ModalidadeDAO(connection);
+        Turma ultimaTurma = null;
+        Aluno ultimoAluno = null;
 
         try {
-            String sql = "SELECT id, codigo_turma, data_turma, hora_turma, fk_professor, fk_modalidade FROM turma";
+            String sql = "SELECT t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor, t.fk_modalidade, a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone "
+            + "FROM turma as t"
+            + "LEFT JOIN aluno_turma AS at ON at.fk_turma = t.id "
+            + "LEFT JOIN aluno AS a ON at.fk_aluno = a.id";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.execute();
-                ResultSet rst = pstm.getResultSet();
-                int tur_id = rst.getInt("id");
-                int cod_turma = rst.getInt("codigo_turma");
-                LocalDate data_turma = rst.getObject("data_turma",LocalDate.class);
-                String hora_turma = rst.getString("hora_turma");
-                Professor professor = pdao.consultarProfessorCodigo(rst.getInt("fk_professor"));
-                Modalidade modalidade = mdao.consultarModalidadeCodigo(rst.getInt("fk_modalidade"));
-                Turma t = new Turma(tur_id, cod_turma, data_turma, hora_turma, modalidade, professor);
-                turma.add(t);
+
+                try(ResultSet rst = pstm.executeQuery()){
+                    while (rst.next()) {
+                        if (ultimaTurma == null || ultimaTurma.getId() != rst.getInt(1)) {
+                            int tur_id = rst.getInt(1);
+                            int cod_turma = rst.getInt(2);
+                            LocalDate data_turma = rst.getObject(3,LocalDate.class);
+                            String hora_turma = rst.getString(4);
+                            Professor professor = pdao.consultarProfessorCodigo(rst.getInt(5));
+                            Modalidade modalidade = mdao.consultarModalidadeCodigo(rst.getInt(6));
+                            Turma t = new Turma(tur_id, cod_turma, data_turma, hora_turma, modalidade, professor);
+                            turmas.add(t);
+                        }
+
+                        if((rst.getInt(7) != 0) && (ultimoAluno == null) || ultimoAluno.getId() != rst.getInt(7)){
+                            int id = rst.getInt(7);
+                            String nome = rst.getString(8);
+                            String cpf = rst.getString(9);
+                            String matricula = rst.getString(10);
+                            String email = rst.getString(11);
+                            int telefone = rst.getInt(12);
+                            Aluno a = new Aluno(id, nome, cpf, matricula, email, telefone);
+                            ultimaTurma.addAluno(a);
+                        }
+                    }
+                }
             }
-            return turma;
+            return turmas;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
