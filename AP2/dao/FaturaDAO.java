@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import modelo.Aluno;
 import modelo.Fatura;
-import dao.aluno;
+import dao.AlunoDAO;
 
 public class FaturaDAO {
 
@@ -101,6 +101,7 @@ public class FaturaDAO {
     // Método para consultar dados de um elemento específico da tabela
     public Fatura consultarfatura(Fatura fatura) {
         Fatura f = null;
+        AlunoDAO adao = new AlunoDAO(connection);
         try {
             String sql = "SELECT f.id, f.valor, f.data_vencimento, f.codigo_fatura, f.fk_aluno"
                     + "WHERE codigo_fatura = ?";
@@ -114,7 +115,8 @@ public class FaturaDAO {
                         float valor = rst.getInt(8);
                         LocalDate data_vencimento = rst.getObject(9, LocalDate.class);
                         int cod_fatura = rst.getInt(10);
-                        f = new Fatura(fat_id, valor, data_vencimento, cod_fatura);
+                        Aluno fk_aluno = adao.consultarAlunoMatricula(rst.getString("fk_aluno"));
+                        f = new Fatura(fat_id, valor, data_vencimento, cod_fatura, fk_aluno);
                     }
                 }
             }

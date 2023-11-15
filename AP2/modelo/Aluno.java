@@ -10,6 +10,7 @@ public class Aluno {
 	private String matricula;
 	private String email;
 	private int telefone;
+	private ArrayList<Fatura> faturas;
 	
 
 	public Aluno(int id, String nome, String cpf, String matricula, String email, int telefone) {
@@ -19,6 +20,7 @@ public class Aluno {
 		this.matricula = matricula;
 		this.email = email;
 		this.telefone = telefone;
+		this.faturas = new ArrayList<Fatura>();
 	}
 	
 	public Aluno(String nome, String cpf, String matricula, String email, int telefone) {
@@ -27,6 +29,7 @@ public class Aluno {
 		this.matricula = matricula;
 		this.email = email;
 		this.telefone = telefone;
+		this.faturas = new ArrayList<Fatura>();
 	}
 
 	public int getId() {
@@ -77,8 +80,22 @@ public class Aluno {
 		this.telefone = telefone;
 	}
 
+	public ArrayList<Fatura> getFaturas(){
+		return faturas;
+	}
 	
+	public void setFaturas(ArrayList<Fatura> faturas) {
+		this.faturas = faturas;
+	}
 
+	public void addFatura(Fatura fatura) {
+        this.faturas.add(fatura);
+    }
+
+    public void removeFatura(Fatura fatura) {
+        this.faturas.remove(fatura);
+    }
+	
 	@Override
 	public String toString() {
 		return "{'aluno':{'id': " + this.id + ", 'nome': '" + this.nome +
@@ -87,4 +104,3 @@ public class Aluno {
 	}
 	
 }
-

@@ -38,10 +38,6 @@ public class AlunoDAO {
                 try (ResultSet rst = pstm.getGeneratedKeys()) {
                     while (rst.next()) {
                         aluno.setId(rst.getInt(1));
-                        for (Fatura fatura : aluno.getFaturas()) {
-                            FaturaDAO fdao = new FaturaDAO(connection);
-                            fdao.create(fatura, aluno);
-                        }
                     }
                 }
             }
@@ -83,7 +79,7 @@ public class AlunoDAO {
         Aluno ultimo = null;
         try {
 
-            String sql = "SELECT a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone, f.id, f.valor, f.data_vencimento, f.codigo_fatura "
+            String sql = "SELECT a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone, f.id, f.valor, f.data_vencimento, f.codigo_fatura, f.fk_aluno "
                     + "FROM aluno AS a "
                     + "INNER JOIN fatura AS f ON a.matricula = f.fk_aluno";
 
@@ -108,7 +104,8 @@ public class AlunoDAO {
                         float valor = rst.getInt(8);
                         LocalDate data_vencimento = rst.getObject(9, LocalDate.class);
                         int cod_fatura = rst.getInt(10);
-                        Fatura f = new Fatura(fat_id, valor, data_vencimento, cod_fatura);
+                        Aluno fk_aluno = consultarAlunoMatricula(rst.getString(11));
+                        Fatura f = new Fatura(fat_id, valor, data_vencimento, cod_fatura, fk_aluno);
                         ultimo.addFatura(f);
                     }
                 }
@@ -125,7 +122,7 @@ public class AlunoDAO {
         Aluno ultimo = null;
         try {
 
-            String sql = "SELECT a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone, f.id, f.valor, f.data_vencimento, f.codigo_fatura "
+            String sql = "SELECT a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone, f.id, f.valor, f.data_vencimento, f.codigo_fatura,f.fk_aluno "
                     + "FROM aluno AS a "
                     + "LEFT JOIN fatura AS f ON a.matricula = f.fk_aluno";
 
@@ -150,7 +147,8 @@ public class AlunoDAO {
                             float valor = rst.getInt(8);
                             LocalDate data_vencimento = rst.getObject(9, LocalDate.class);
                             int cod_fatura = rst.getInt(10);
-                            Fatura f = new Fatura(fat_id, valor, data_vencimento, cod_fatura);
+                            Aluno fk_aluno = consultarAlunoMatricula(rst.getString(11));
+                            Fatura f = new Fatura(fat_id, valor, data_vencimento, cod_fatura, fk_aluno);
                             ultimo.addFatura(f);
                         }
                     }
@@ -211,9 +209,9 @@ public class AlunoDAO {
                         int a_id = rst.getInt(1);
                         String nome = rst.getString(2);
                         String cpf = rst.getString(3);
-                        String matricula_recebida = rst.getString(4);
-                        String email = rst.getString(5);
-                        int telefone = rst.getInt(6);
+                        String matricula_recebida = matricula;
+                        String email = rst.getString(4);
+                        int telefone = rst.getInt(5);
                         a = new Aluno(a_id, nome, cpf, matricula_recebida, email, telefone);
                     }
                 }
