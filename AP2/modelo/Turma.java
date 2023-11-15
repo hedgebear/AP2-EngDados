@@ -98,7 +98,7 @@ public class Turma {
 		this.professor = professor;
 	}
 
-    public ArrayList<Aluno> getAlunos() {
+    private ArrayList<Aluno> getAlunos() {
         return alunos;
     }
 

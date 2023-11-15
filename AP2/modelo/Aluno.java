@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.ArrayList;
+
 public class Aluno {
 
 	private int id;
@@ -8,6 +10,7 @@ public class Aluno {
 	private String matricula;
 	private String email;
 	private int telefone;
+	private ArrayList<Turma> turmas;
 	
 
 	public Aluno(int id, String nome, String cpf, String matricula, String email, int telefone) {
@@ -17,6 +20,7 @@ public class Aluno {
 		this.matricula = matricula;
 		this.email = email;
 		this.telefone = telefone;
+		this.turmas = new ArrayList<Turma>();
 	}
 	
 	public Aluno(String nome, String cpf, String matricula, String email, int telefone) {
@@ -25,7 +29,27 @@ public class Aluno {
 		this.matricula = matricula;
 		this.email = email;
 		this.telefone = telefone;
+		this.turmas = new ArrayList<Turma>();
 	}
+
+	 public Aluno(int id, String nome, String cpf, String matricula, String email, int telefone, ArrayList<Turma> turmas) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.matricula = matricula;
+        this.email = email;
+        this.telefone = telefone;
+        this.turmas = new ArrayList<>();  
+    }
+
+    public Aluno(String nome, String cpf, String matricula, String email, int telefone, ArrayList<Turma> turmas) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.matricula = matricula;
+        this.email = email;
+        this.telefone = telefone;
+        this.turmas = new ArrayList<>();  
+    }
 
 	public int getId() {
 		return id;
@@ -74,6 +98,22 @@ public class Aluno {
 	public void setTelefone(int telefone) {
 		this.telefone = telefone;
 	}
+
+	private ArrayList<Turma> getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(ArrayList<Turma> turmas) {
+        this.turmas = turmas;
+    }
+
+    public void addTurma(Turma turma) {
+        this.turmas.add(turma);
+    }
+
+    public void removeTurma(Turma turma) {
+        this.turmas.remove(turma);
+    }
 	
 	@Override
     public String toString() {
