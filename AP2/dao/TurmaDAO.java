@@ -97,10 +97,10 @@ public class TurmaDAO {
         
         try {
             String sql = "SELECT t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor, t.fk_modalidade, a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone "
-                    + "FROM turma as t "
-                    + "LEFT JOIN aluno_turma AS at ON at.fk_turma = t.id "
-                    + "LEFT JOIN aluno AS a ON at.fk_aluno = a.id";
-    
+            + "FROM turma as t"
+            + "LEFT JOIN aluno_turma AS at ON at.fk_turma = t.id "
+            + "LEFT JOIN aluno AS a ON at.fk_aluno = a.id";
+
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.execute();
     
@@ -200,19 +200,21 @@ public class TurmaDAO {
 
     public Turma consultarTurmaEspcComAlunos(Turma turma) {
         Turma t = null;
+        Turma ultima = null;
         ProfessorDAO pdao = new ProfessorDAO(connection);
         ModalidadeDAO mdao = new ModalidadeDAO(connection);
         try {
             String sql = "SELECT t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor, t.fk_modalidade, a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone "
-            + "FROM turma as t"
+            + "FROM turma as t "
             + "LEFT JOIN aluno_turma AS at ON at.fk_turma = t.id "
-            + "LEFT JOIN aluno AS a ON at.fk_aluno = a.id";
+            + "LEFT JOIN aluno AS a ON at.fk_aluno = a.id "
+            + "WHERE id = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setInt(1,turma.getId());
 
                 try (ResultSet rst = pstm.getResultSet()) {
-                    if (rst.next()) {
+                    while(rst.next()) {
                         int tur_id = rst.getInt(7);
                         int cod_turma = rst.getInt(8);
                         LocalDate data_turma = rst.getObject(9, LocalDate.class);
@@ -220,6 +222,15 @@ public class TurmaDAO {
                         Professor professor = pdao.consultarProfessorCodigo(rst.getInt("fk_professor"));
                         Modalidade modalidade = mdao.consultarModalidadeCodigo(rst.getInt("fk_modalidade"));
                         t = new Turma(tur_id, cod_turma, data_turma, hora_turma, modalidade, professor);
+
+                        int id = rst.getInt(7);
+                        String nome = rst.getString(8);
+                        String cpf = rst.getString(9);
+                        String matricula = rst.getString(10);
+                        String email = rst.getString(11);
+                        int telefone = rst.getInt(12);
+                        Aluno a = new Aluno(id, nome, cpf, matricula, email, telefone);
+                        t.addAluno(a);
                     }
                 }
             }

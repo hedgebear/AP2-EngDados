@@ -23,13 +23,13 @@ public class FaturaDAO {
 
     public void create(Fatura fatura, Aluno aluno) {
         try {
-            String sql = "INSERT INTO fatura (valor, data_vencimento, codigo_fatura, fk_aluno) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO fatura (valor, codigo_fatura, data_vencimento, fk_aluno) VALUES (?, ?, ?, ?)";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
                 pstm.setFloat(1, fatura.getValor());
-                pstm.setObject(2, fatura.getData_Vencimento());
-                pstm.setInt(3, fatura.getCodigo_Fatura());
+                pstm.setInt(2, fatura.getCodigo_Fatura());
+                pstm.setObject(3, fatura.getData_Vencimento());
                 pstm.setString(4, aluno.getMatricula());
                 pstm.execute();
 
