@@ -116,9 +116,10 @@ public class Turma {
 	
 	@Override
 	public String toString() {
-		return "{'turma':{'id': " + this.id + ", 'codigo_turma': " + this.codigo_turma +
-			", 'data_turma': '" + this.data_turma + "', 'hora_turma': '" + this.hora_turma + "'}}";
-	}
+        return "Turma{" +
+                "id=" + id + ", codigo_turma=" + codigo_turma + ", data_turma=" + data_turma + ", hora_turma='" + hora_turma + '\'' +
+                ", modalidade=" + modalidade + ", professor=" + professor + '}';
+    }
 
 	
 }
