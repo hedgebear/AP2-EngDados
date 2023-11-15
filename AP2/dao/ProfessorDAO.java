@@ -217,7 +217,7 @@ public class ProfessorDAO {
                         String email = rst.getString(5);
                         String especializacao = rst.getString(6);
                         String contaBanco = rst.getString(7);
-                        p = new Professor(prof_id, codigo_prof, nome, cpf, especializacao, contaBanco, email, telefone);
+                        p = new Professor(prof_id, codigo_professor, nome, cpf, especializacao, contaBanco, email, telefone);
                         
                         int tur_id = rst.getInt(9);
                         int codigo_turma = rst.getInt(10);
