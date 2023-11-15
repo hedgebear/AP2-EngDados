@@ -1,7 +1,5 @@
 package modelo;
 
-import java.util.ArrayList;
-
 public class Professor {
 
     private int id;
