@@ -48,7 +48,7 @@ public class ModalidadeDAO {
         ArrayList<Modalidade> modalidades = new ArrayList<Modalidade>();
 
 		try {
-			String sql = "SELECT id, nome, codigo_modalidade FROM modalidade";
+			String sql = "SELECT id, nome, codigo_modalidade FROM modalidade ";
 
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.execute();
@@ -101,7 +101,7 @@ public class ModalidadeDAO {
     public Modalidade consultarModalidadeCodigo(int codigo_modalidade) {
         Modalidade m = null;
         try {
-            String sql = "SELECT id, nome, codigo_modalidade FROM modalidade"
+            String sql = "SELECT id, nome, codigo_modalidade FROM modalidade "
                     + "WHERE codigo_modalidade = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {

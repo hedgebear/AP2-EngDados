@@ -53,7 +53,7 @@ public class ProfessorDAO {
         ArrayList<Professor> professores = new ArrayList<Professor>();
 
 		try {
-			String sql = "SELECT id, codigo_professor, nome, cpf, especializacao, contaBanco, email, telefone FROM professor";
+			String sql = "SELECT id, codigo_professor, nome, cpf, especializacao, contaBanco, email, telefone FROM professor ";
 
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.execute();
@@ -114,7 +114,7 @@ public class ProfessorDAO {
     public Professor consultarProfessorCodigo(int codigo_professor) {
         Professor p = null;
         try {
-            String sql = "SELECT id, codigo_professor, nome, cpf, especializacao, contaBanco, email, telefone FROM professor" 
+            String sql = "SELECT id, codigo_professor, nome, cpf, especializacao, contaBanco, email, telefone FROM professor " 
                     + "WHERE codigo_professor = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {

@@ -48,7 +48,7 @@ public class AlunoDAO {
         ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 
 		try {
-			String sql = "SELECT id, nome, cpf, matricula, email, telefone FROM aluno";
+			String sql = "SELECT id, nome, cpf, matricula, email, telefone FROM aluno ";
 
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.execute();

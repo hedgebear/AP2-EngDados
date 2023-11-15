@@ -49,7 +49,7 @@ public class FaturaDAO {
         ArrayList<Fatura> faturas = new ArrayList<Fatura>();
         AlunoDAO adao = new AlunoDAO(connection);
 		try {
-			String sql = "SELECT id, valor, data_vencimento, codigo_fatura, fk_aluno FROM fatura";
+			String sql = "SELECT id, valor, data_vencimento, codigo_fatura, fk_aluno FROM fatura ";
 
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.execute();
@@ -107,7 +107,7 @@ public class FaturaDAO {
         Fatura f = null;
         AlunoDAO adao = new AlunoDAO(connection);
         try {
-            String sql = "SELECT f.id, f.valor, f.data_vencimento, f.codigo_fatura, f.fk_aluno"
+            String sql = "SELECT id, valor, data_vencimento, codigo_fatura, fk_aluno FROM fatura "
                     + "WHERE codigo_fatura = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
