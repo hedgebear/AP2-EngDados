@@ -104,4 +104,21 @@ public class Turma {
 			", 'data_turma': '" + this.data_turma + "', 'hora_turma': '" + this.hora_turma + "'}}";
 	}
 
+	private ArrayList<Turma> turmas; // Adicione essa linha para definir a lista de turmas
+
+    public ArrayList<Turma> getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(ArrayList<Turma> turmas) {
+        this.turmas = turmas;
+    }
+
+    public void addTurma(Turma turma) {
+        this.turmas.add(turma);
+    }
+
+    public void removeTurma(Turma turma) {
+        this.turmas.remove(turma);
+    }
 }
