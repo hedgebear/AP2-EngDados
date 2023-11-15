@@ -6,12 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import java.time.LocalDate;
-
 import java.util.ArrayList;
 
 import modelo.Aluno;
-import modelo.Fatura;
 
 public class AlunoDAO {
 
@@ -45,8 +42,8 @@ public class AlunoDAO {
             throw new RuntimeException(e);
         }
     }
-    // metodo para pegar todos os sem fatura
-    public ArrayList<Aluno> retriveAllSemFatura(){
+    // metodo para pegar todos
+    public ArrayList<Aluno> retriveAll(){
         
         ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 
@@ -71,93 +68,6 @@ public class AlunoDAO {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-    }
-    // metodo para pegar todos com fatura
-    public ArrayList<Aluno> retriveAlunosComFatura(){
-
-        ArrayList<Aluno> alunos = new ArrayList<Aluno>();
-        Aluno ultimo = null;
-        try {
-
-            String sql = "SELECT a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone, f.id, f.valor, f.data_vencimento, f.codigo_fatura, f.fk_aluno "
-                    + "FROM aluno AS a "
-                    + "INNER JOIN fatura AS f ON a.matricula = f.fk_aluno";
-
-            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.execute();
-
-                try (ResultSet rst = pstm.getResultSet()) {
-                    while (rst.next()) {
-                        if (ultimo == null || ultimo.getId() != rst.getInt(1)) {
-                            int a_id = rst.getInt(1);
-                            String nome = rst.getString(2);
-                            String cpf = rst.getString(3);
-                            String matricula = rst.getString(4);
-                            String email = rst.getString(5);
-                            int telefone = rst.getInt(6);
-                            Aluno a = new Aluno(a_id, nome, cpf, matricula, email, telefone);
-                            alunos.add(a);
-                            ultimo = a;
-                        }
-
-                        int fat_id = rst.getInt(7);
-                        float valor = rst.getInt(8);
-                        LocalDate data_vencimento = rst.getObject(9, LocalDate.class);
-                        int cod_fatura = rst.getInt(10);
-                        Aluno fk_aluno = consultarAlunoMatricula(rst.getString(11));
-                        Fatura f = new Fatura(fat_id, valor, data_vencimento, cod_fatura, fk_aluno);
-                        ultimo.addFatura(f);
-                    }
-                }
-                return alunos;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    // metodo para pegar todos com fatura e sem fatura
-    public ArrayList<Aluno> retriveAllComFatura(){
-
-        ArrayList<Aluno> alunos = new ArrayList<Aluno>();
-        Aluno ultimo = null;
-        try {
-
-            String sql = "SELECT a.id, a.nome, a.cpf, a.matricula, a.email, a.telefone, f.id, f.valor, f.data_vencimento, f.codigo_fatura,f.fk_aluno "
-                    + "FROM aluno AS a "
-                    + "LEFT JOIN fatura AS f ON a.matricula = f.fk_aluno";
-
-            try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.execute();
-
-                try (ResultSet rst = pstm.getResultSet()) {
-                    while (rst.next()) {
-                        if (ultimo == null || ultimo.getId() != rst.getInt(1)) {
-                            int a_id = rst.getInt(1);
-                            String nome = rst.getString(2);
-                            String cpf = rst.getString(3);
-                            String matricula = rst.getString(4);
-                            String email = rst.getString(5);
-                            int telefone = rst.getInt(6);
-                            Aluno a = new Aluno(a_id, nome, cpf, matricula, email, telefone);
-                            alunos.add(a);
-                            ultimo = a;
-                        }
-                        if(rst.getInt(7) != 0){
-                            int fat_id = rst.getInt(7);
-                            float valor = rst.getInt(8);
-                            LocalDate data_vencimento = rst.getObject(9, LocalDate.class);
-                            int cod_fatura = rst.getInt(10);
-                            Aluno fk_aluno = consultarAlunoMatricula(rst.getString(11));
-                            Fatura f = new Fatura(fat_id, valor, data_vencimento, cod_fatura, fk_aluno);
-                            ultimo.addFatura(f);
-                        }
-                    }
-                }
-                return alunos;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     // Método para atualização de dados na tabela
@@ -197,14 +107,14 @@ public class AlunoDAO {
     public Aluno consultarAlunoMatricula(String matricula) {
         Aluno a = null;
         try {
-            String sql = "SELECT a.id, a.nome, a.cpf, a.email, a.telefone "
+            String sql = "SELECT id, nome, cpf, email, telefone "
                     + "FROM aluno "
                     + "WHERE matricula = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setString(1,matricula);
 
-                try (ResultSet rst = pstm.getResultSet()) {
+                try (ResultSet rst = pstm.executeQuery()) {
                     if (rst.next()) {
                         int a_id = rst.getInt(1);
                         String nome = rst.getString(2);

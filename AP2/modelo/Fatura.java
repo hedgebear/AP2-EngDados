@@ -65,8 +65,10 @@ public class Fatura {
 	}
 
 	@Override
-	public String toString() {
-		return "{'identificacao':{'id': " + this.id + ", 'codigo da fatura': '" + this.codigo_fatura + "}}";
-	}
+    public String toString() {
+        return "{'fatura':{'id': " + this.id + ", 'valor': " + this.valor +
+               ", 'data_vencimento': '" + this.data_vencimento + "', 'codigo_fatura': " + this.codigo_fatura +
+               ", '" + this.aluno.toString() +" '" "}}";
+    }
 	
 }

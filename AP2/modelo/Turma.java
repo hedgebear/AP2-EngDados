@@ -11,17 +11,21 @@ public class Turma {
 	private Modalidade modalidade;
 	private Professor professor;
 
-	public Turma(int id, int codigo_turma, LocalDate data_turma, String hora_turma) {
+	public Turma(int id, int codigo_turma, LocalDate data_turma, String hora_turma, Modalidade modalidade, Professor professor) {
 		this.id = id;
 		this.codigo_turma = codigo_turma;
 		this.data_turma = data_turma;
 		this.hora_turma = hora_turma;
+		this.modalidade = modalidade;
+		this.professor = professor;
 	}
 
-	public Turma(int codigo_turma, LocalDate data_turma, String hora_turma) {
+	public Turma(int codigo_turma, LocalDate data_turma, String hora_turma, Modalidade modalidade, Professor professor) {
 		this.codigo_turma = codigo_turma;
 		this.data_turma = data_turma;
 		this.hora_turma = hora_turma;
+		this.modalidade = modalidade;
+		this.professor = professor;
 	}
 
 	public int getId() {
@@ -54,6 +58,22 @@ public class Turma {
 
 	public void setHora_Turma(String hora_turma) {
 		this.hora_turma = hora_turma;
+	}
+
+	public Modalidade getModalidade() {
+		return modalidade;
+	}
+
+	public void setModalidade(Modalidade modalidade) {
+		this.modalidade = modalidade;
+	}
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
 	}
 	
 	@Override

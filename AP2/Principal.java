@@ -21,8 +21,7 @@ public class Principal{
     public static void main(String[] args) throws SQLException {
         //Instaciando objetos
         Aluno aluno1 = new Aluno("Lucas Fernandes", "00011122200","202203369016","lucas2002mkx@gmail.com",999665643 );
-        Fatura fatura1 = new Fatura(2000,LocalDate.of(2023,11,30),0001);
-        aluno1.addFatura(fatura1);
+        Fatura fatura1 = new Fatura(2000,LocalDate.of(2023,11,30),0001,aluno1);
         
 
         
@@ -50,6 +49,8 @@ public class Principal{
 
         
         System.out.println(aluno1);
+        System.out.println(fatura1);
+
         // System.out.println(pessoa2);
         // System.out.println(pessoa3);
         // System.out.println(pessoa4);
@@ -72,7 +73,8 @@ public class Principal{
         TurmaDAO tdao = new TurmaDAO(connection);
         
         // criando os objetos no banco
-        adao.createAluno(aluno1);
+        //adao.createAluno(aluno1);
+        //fdao.create(fatura1, aluno1);
         // pdao.createComTelefone(pessoa2);
         // pdao.createComTelefone(pessoa3);
         // pdao.createComTelefone(pessoa4);
@@ -83,14 +85,15 @@ public class Principal{
         // pdao.createComTelefone(pessoa9);
  
         //selecionando todos os objetos do banco
-        ArrayList<Aluno> alunos =  adao.retriveAllComFatura();
+        ArrayList<Aluno> alunos =  adao.retriveAll();
+        ArrayList<Fatura> faturas = fdao.retriveAllFaturas();
         //ArrayList<Pessoa> pessoas =  pdao.retriveAllSemTelefone();
         System.out.println("Comecei a printar os objetos do BD\n");
         for (Aluno aluno : alunos) {
             System.out.println(aluno);
-            for (Fatura fatura : aluno.getFaturas()) {
-                System.out.println(fatura);
-            }
+        }
+        for (Fatura fatura : faturas) {
+            System.out.println(fatura);
         }
 
         //selecionando apenas um objeto pelo banco

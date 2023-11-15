@@ -12,7 +12,6 @@ public class Professor {
     private String contaBanco;
     private String email;
     private int telefone;
-    private ArrayList<Turma> turmas;
 
  
         public Professor(int id, int codigo_professor, String nome, String cpf, String especializacao, String contaBanco, String email, int telefone) {
@@ -103,22 +102,6 @@ public class Professor {
     public void setTelefone (int telefone) {
         this.telefone = telefone;
     }
-
-    public ArrayList<Turma> getTurmas() {
-		return turmas;
-	}
-
-	public void setTurmas(ArrayList<Turma> turmas) {
-		this.turmas = turmas;
-	}
-
-	public void addTurma(Turma turma) {
-		this.turmas.add(turma);
-	}
-
-	public void removeTurma(Turma turma) {
-		this.turmas.remove(turma);
-	}
 
     @Override
     public String toString() {

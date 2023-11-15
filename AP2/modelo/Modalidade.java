@@ -1,13 +1,10 @@
 package modelo;
 
-import java.util.ArrayList;
-
 public class Modalidade {
 
 	private int id;
 	private String nome;
 	private int codigo_modalidade;
-	private ArrayList<Turma> turmas;
 
 	public Modalidade(int id, String nome, int codigo_modalidade) {
 		this.id = id;
@@ -43,26 +40,11 @@ public class Modalidade {
 	public void setCodigo_Modalidade(int codigo_modalidade) {
 		this.codigo_modalidade = codigo_modalidade;
 	}
-
-	public ArrayList<Turma> getTurmas() {
-		return turmas;
-	}
-
-	public void setTurmas(ArrayList<Turma> turmas) {
-		this.turmas = turmas;
-	}
-
-	public void addTurma(Turma turma) {
-		this.turmas.add(turma);
-	}
-
-	public void removeTurma(Turma turma) {
-		this.turmas.remove(turma);
-	}
 	
 	@Override
-	public String toString() {
-		return "{'modalidade':{'id': " + this.id + ", 'nome': '" + this.nome + "}}";
-	}
+    public String toString() {
+        return "{'professor':{'id': " + this.id + ", 'nome': '" + this.nome +
+               "', 'codigo_modalidade': " + this.codigo_modalidade + "}}";
+    }
 }
 

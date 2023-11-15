@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import modelo.Aluno;
 import modelo.Fatura;
-import dao.AlunoDAO;
+
 
 public class FaturaDAO {
 
@@ -53,14 +53,17 @@ public class FaturaDAO {
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.execute();
                 ResultSet rst = pstm.getResultSet();
-                int fat_id = rst.getInt("id");
-                float valor = rst.getFloat("valor");
-                LocalDate dat_ven = rst.getObject("data_vencimento",LocalDate.class);
-                int cod_fat = rst.getInt("codigo_fatura");
-                Aluno fk_aluno = adao.consultarAlunoMatricula(rst.getString("fk_aluno"));
-                Fatura f = new Fatura(fat_id, valor, dat_ven, cod_fat, fk_aluno);
-                faturas.add(f);
-			}
+                while(rst.next()){
+                    int fat_id = rst.getInt("id");
+                    float valor = rst.getFloat("valor");
+                    LocalDate dat_ven = rst.getObject("data_vencimento",LocalDate.class);
+                    int cod_fat = rst.getInt("codigo_fatura");
+                    String alun = rst.getString("fk_aluno");
+                    Aluno fk_aluno = adao.consultarAlunoMatricula(alun);
+                    Fatura f = new Fatura(fat_id, valor, dat_ven, cod_fat, fk_aluno);
+                    faturas.add(f);
+                }
+            }
 			return faturas;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

@@ -1,7 +1,5 @@
 package modelo;
 
-import java.util.ArrayList;
-
 public class Aluno {
 
 	private int id;
@@ -10,7 +8,6 @@ public class Aluno {
 	private String matricula;
 	private String email;
 	private int telefone;
-	private ArrayList<Fatura> faturas;
 	
 
 	public Aluno(int id, String nome, String cpf, String matricula, String email, int telefone) {
@@ -20,7 +17,6 @@ public class Aluno {
 		this.matricula = matricula;
 		this.email = email;
 		this.telefone = telefone;
-		this.faturas = new ArrayList<Fatura>();
 	}
 	
 	public Aluno(String nome, String cpf, String matricula, String email, int telefone) {
@@ -29,7 +25,6 @@ public class Aluno {
 		this.matricula = matricula;
 		this.email = email;
 		this.telefone = telefone;
-		this.faturas = new ArrayList<Fatura>();
 	}
 
 	public int getId() {
@@ -79,28 +74,12 @@ public class Aluno {
 	public void setTelefone(int telefone) {
 		this.telefone = telefone;
 	}
-
-	public ArrayList<Fatura> getFaturas(){
-		return faturas;
-	}
-	
-	public void setFaturas(ArrayList<Fatura> faturas) {
-		this.faturas = faturas;
-	}
-
-	public void addFatura(Fatura fatura) {
-        this.faturas.add(fatura);
-    }
-
-    public void removeFatura(Fatura fatura) {
-        this.faturas.remove(fatura);
-    }
 	
 	@Override
-	public String toString() {
-		return "{'aluno':{'id': " + this.id + ", 'nome': '" + this.nome +
-			"', 'cpf': '" + this.cpf + "', 'matricula': " + this.matricula +
-			", 'Email': '" + this.email + "'}}";
-	}
+    public String toString() {
+        return "{'aluno':{'id': " + this.id + ", 'nome': '" + this.nome +
+               "', 'cpf': '" + this.cpf + "', 'matricula': '" + this.matricula +
+               "', 'email': '" + this.email + "', 'telefone': " + this.telefone + "}}";
+    }
 	
 }
