@@ -23,13 +23,13 @@ public class AlunoDAO {
     // metodo para criar o aluno
     public void createAlunoSemTurma(Aluno aluno) {
         try {
-            String sql = "INSERT INTO aluno (nome, cpf, matricula, email, telefone) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO aluno (nome, matricula, cpf, email, telefone) VALUES (?, ?, ?, ?, ?)";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
                 pstm.setString(1, aluno.getNome());
-                pstm.setString(2, aluno.getCpf());
-                pstm.setString(3, aluno.getMatricula());
+                pstm.setString(2, aluno.getMatricula());
+                pstm.setString(3, aluno.getCpf());
                 pstm.setString(4, aluno.getEmail());
                 pstm.setInt(5, aluno.getTelefone());
 
@@ -48,13 +48,13 @@ public class AlunoDAO {
 
     public void createAlunoComTurma(Aluno aluno) {
         try {
-            String sql = "INSERT INTO turma (nome, cpf, matricula, email, telefone) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO turma (nome, matricula, cpf, email, telefone) VALUES (?, ?, ?, ?, ?)";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 
                 pstm.setString(1, aluno.getNome());
-                pstm.setString(2, aluno.getCpf());
-                pstm.setString(3, aluno.getMatricula());
+                pstm.setString(2, aluno.getMatricula());
+                pstm.setString(3, aluno.getCpf());
                 pstm.setString(4, aluno.getEmail());
                 pstm.setInt(5, aluno.getTelefone());
 
