@@ -121,5 +121,9 @@ public class Aluno {
                "', 'cpf': '" + this.cpf + "', 'matricula': '" + this.matricula +
                "', 'email': '" + this.email + "', 'telefone': " + this.telefone + "}}";
     }
+
+	public Turma[] getAlunos() {
+		return null;
+	}
 	
 }
