@@ -24,7 +24,11 @@ public class Principal{
         Fatura fatura1 = new Fatura(2000,LocalDate.of(2023,11,30),0001,aluno1);
         Aluno aluno2 = new Aluno("Beatriz Turi", "00011122500","202203795211","beatrizturiparaujo@gmail.com",969815773 );
         Aluno aluno3 = new Aluno("Bingo da Silva", "00011122547","202206995211","bingoS@gmail.com",969885773 );
-                 
+        Aluno aluno4 = new Aluno("Karlos conka", "01511122500","202203795241","beata@gmail.com",969815773 );
+        Aluno aluno5 = new Aluno("josias ana", "14011122547","202206995217","bingAS@gmail.com",969885773 );
+           
+        
+
         Professor professor1 = new Professor(1, "Janio quadros",  "11554426958", "cantor", "090909", "cachotto@gmail.com",969885773 );
         Modalidade modalidad1 = new Modalidade("Natacao", 017);
 
@@ -92,6 +96,8 @@ public class Principal{
         pdao.createProfessor(professor1);
         tdao.createComAluno(turma1, professor1, modalidad1);
         tdao.createComAluno(turma2, professor1, modalidad1);
+        adao.createAlunoComTurma(aluno4);
+        adao.createAlunoSemTurma(aluno5);
         //eu não acredito em fadas
         // pdao.createComTelefone(pessoa2);
         // pdao.createComTelefone(pessoa3);

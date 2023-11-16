@@ -117,9 +117,10 @@ public class TurmaDAO {
                             Modalidade modalidade = mdao.consultarModalidadeCodigo(rst.getInt(6));
                             Turma t = new Turma(tur_id, cod_turma, data_turma, hora_turma, modalidade, professor);
                             turmas.add(t);
+
                         }
 
-                        if((rst.getInt(7) != 0) && (ultimoAluno == null) || ultimoAluno.getId() != rst.getInt(7)){
+                        if((rst.getInt(7) != 0) && (ultimoAluno == null || ultimoAluno.getId() != rst.getInt(7))){
                             int id = rst.getInt(7);
                             String nome = rst.getString(8);
                             String cpf = rst.getString(9);

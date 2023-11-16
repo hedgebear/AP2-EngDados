@@ -43,7 +43,7 @@ public class Modalidade {
 	
 	@Override
     public String toString() {
-        return "{'professor':{'id': " + this.id + ", 'nome': '" + this.nome +
+        return "{'Modalidade':{'id': " + this.id + ", 'nome': '" + this.nome +
                "', 'codigo_modalidade': " + this.codigo_modalidade + "}}";
     }
 }
