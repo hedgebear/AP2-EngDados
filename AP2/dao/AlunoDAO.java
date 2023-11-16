@@ -130,8 +130,8 @@ public class AlunoDAO {
         try {
             String sql = "SELECT a.id, a.nome, a.matricula, a.cpf, a.email, a.telefone, t.id, t.codigo_turma, t.data_turma, t.hora_turma, t.fk_professor, t.fk_modalidade "
                     + "FROM aluno as a "
-                    + "LEFT JOIN aluno_turma AS at ON at.fk_aluno = a.id "
-                    + "LEFT JOIN turma AS t ON at.fk_turma = t.id";
+                    + "LEFT JOIN aluno_turma AS at ON at.fk_aluno = a.matricula "
+                    + "LEFT JOIN turma AS t ON at.fk_turma = t.codigo_turma";
     
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.execute();
