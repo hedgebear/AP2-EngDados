@@ -110,16 +110,15 @@ public class Principal{
  
         //selecionando todos os objetos do banco
         ArrayList<Aluno> alunos =  adao.retriveAll();
-        //ArrayList<Fatura> faturas = fdao.retriveAllFaturas();
+        ArrayList<Fatura> faturas = fdao.retriveAllFaturas();
         ArrayList<Turma> turmas = tdao.retriveAllTurmasComAlunos();
-        //ArrayList<Pessoa> pessoas =  pdao.retriveAllSemTelefone();
         System.out.println("teste dos alunos\n");
         for (Aluno aluno : alunos) {
             System.out.println(aluno);
         }
-        // for (Fatura fatura : faturas) {
-        //     System.out.println(fatura);
-        // }
+        for (Fatura fatura : faturas) {
+             System.out.println(fatura);
+        }
         System.out.println("Teste de turmas com aluno\n");
         for (Turma turma : turmas) {
             System.out.println(turma);
