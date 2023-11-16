@@ -2,6 +2,7 @@ package modelo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Turma {
 
@@ -112,15 +113,19 @@ public class Turma {
     }
 
     public void removeAluno(Aluno aluno) {
-
         this.alunos.remove(aluno);
     }
 	
 	@Override
-	public String toString() {
-        return "Turma{" +
-                "id=" + id + ", codigo_turma=" + codigo_turma + ", data_turma=" + data_turma + ", hora_turma='" + hora_turma + '\'' +
-                ", modalidade=" + modalidade + ", professor=" + professor + '}';
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Turma: ").append(codigo_turma)
+          .append(", Data: ").append(data_turma)
+          .append(", Hora: ").append(hora_turma)
+          .append(", Modalidade: ").append(modalidade)
+          .append(", Professor: ").append(professor)
+          .append(", Alunos: ").append(Arrays.toString(alunos.toArray()));
+        return sb.toString();
     }
 
 	

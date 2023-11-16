@@ -48,7 +48,7 @@ public class AlunoDAO {
 
     public void createAlunoComTurma(Aluno aluno) {
         try {
-            String sql = "INSERT INTO turma (nome, matricula, cpf, email, telefone) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO aluno (nome, matricula, cpf, email, telefone) VALUES (?, ?, ?, ?, ?)";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 
