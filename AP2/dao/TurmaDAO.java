@@ -117,6 +117,7 @@ public class TurmaDAO {
                             Modalidade modalidade = mdao.consultarModalidadeCodigo(rst.getInt(6));
                             Turma t = new Turma(tur_id, cod_turma, data_turma, hora_turma, modalidade, professor);
                             turmas.add(t);
+                            ultimaTurma = t;
 
                         }
 
