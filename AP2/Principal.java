@@ -21,19 +21,38 @@ public class Principal{
     public static void main(String[] args) throws SQLException {
         //Instaciando objetos
         Aluno aluno1 = new Aluno("Lucas Fernandes", "00011122200","202203369016","lucas2002mkx@gmail.com",999665643 );
-        Fatura fatura1 = new Fatura(2000,LocalDate.of(2023,11,30),0001,aluno1);
         Aluno aluno2 = new Aluno("Beatriz Turi", "00011122500","202203795211","beatrizturiparaujo@gmail.com",969815773 );
         Aluno aluno3 = new Aluno("Bingo da Silva", "00011122547","202206995211","bingoS@gmail.com",969885773 );
         Aluno aluno4 = new Aluno("Karlos conka", "01511122500","202203795241","beata@gmail.com",969815773 );
         Aluno aluno5 = new Aluno("josias ana", "14011122547","202206995217","bingAS@gmail.com",969885773 );
-           
-        
-
-        Professor professor1 = new Professor(1, "Janio quadros",  "11554426958", "cantor", "090909", "cachotto@gmail.com",969885773 );
-        Modalidade modalidad1 = new Modalidade("Natacao", 017);
+        Aluno aluno6 = new Aluno("Maria Oliveira", "21011122500", "202203795111", "maria@gmail.com", 979815773);
+        Aluno aluno7 = new Aluno("Roberto Silva", "32111122547", "202206995222", "roberto@gmail.com", 989885773);
+        Aluno aluno8 = new Aluno("Carla Souza", "12345678901", "202203795233", "carla@gmail.com", 959815773);
+        Aluno aluno9 = new Aluno("Fernanda Lima", "98765432101", "202206995244", "fernanda@gmail.com", 929885773);
+        Aluno aluno10 = new Aluno("João Pereira", "55511122500", "202203795255", "joao@gmail.com", 909815773);
 
         Turma turma1 = new Turma(23,LocalDate.of(2023,10,10) , "13:00", modalidad1, professor1);
         Turma turma2 = new Turma(24,LocalDate.of(2023,10,10) , "14:00", modalidad1, professor1);
+        Turma turma3 = new Turma(25, LocalDate.of(2023, 10, 11), "15:00", modalidade2, professor2);
+        Turma turma4 = new Turma(26, LocalDate.of(2023, 10, 11), "16:00", modalidade2, professor2);
+        Turma turma5 = new Turma(27, LocalDate.of(2023, 10, 12), "17:00", modalidade2, professor2);
+        Turma turma6 = new Turma(28, LocalDate.of(2023, 10, 12), "18:00", modalidade2, professor2);
+        Turma turma7 = new Turma(29, LocalDate.of(2023, 10, 13), "19:00", modalidade2, professor2);
+
+        Fatura fatura1 = new Fatura(2000,LocalDate.of(2023,11,30),0001,aluno1);
+        Fatura fatura2 = new Fatura(1500, LocalDate.of(2023, 11, 15), 0002, aluno2);
+        Fatura fatura3 = new Fatura(1800, LocalDate.of(2023, 11, 20), 0003, aluno3);
+        Fatura fatura4 = new Fatura(2000, LocalDate.of(2023, 11, 25), 0004, aluno4);
+        Fatura fatura5 = new Fatura(1700, LocalDate.of(2023, 11, 28), 0005, aluno5);
+        Fatura fatura6 = new Fatura(1900, LocalDate.of(2023, 12, 1), 0006, aluno6);
+
+        Professor professor1 = new Professor(1, "Janio quadros",  "11554426958", "cantor", "090909", "cachotto@gmail.com",969885773 );
+        Modalidade modalidad1 = new Modalidade("Natacao", 017);
+        Professor professor2 = new Professor(2, "Ana Paula", "22554426958", "coreógrafa", "080808", "ana@gmail.com", 959885773);
+        Modalidade modalidade2 = new Modalidade("Dança Contemporânea", 018);
+
+        
+
         
         turma1.addAluno(aluno1);
         turma1.addAluno(aluno2);
