@@ -1,7 +1,6 @@
 package modelo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Aluno {
 
@@ -118,14 +117,16 @@ public class Aluno {
 	
 	@Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Aluno: ").append(nome)
-          .append(", Código: ").append(cpf)
-          .append(", Matrícula: ").append(matricula)
-          .append(", Email: ").append(email)
-          .append(", Telefone: ").append(telefone)
-          .append(", Turmas: ").append(Arrays.toString(turmas.toArray()));
-        return sb.toString();
+        return "{'Aluno':{'id': " + this.id + ", 'nome': '" + this.nome +
+               "', 'cpf': '" + this.cpf + "', 'matricula': '" + this.matricula +
+               "', 'email': '" + this.email + "', 'telefone': " + this.telefone + "', 'Turmas': " + this.turmas +"}}";
     }	
+
+    public String toString2() {
+        return "{'Aluno':{'id': " + this.id + ", 'nome': '" + this.nome +
+               "', 'cpf': '" + this.cpf + "', 'matricula': '" + this.matricula +
+               "', 'email': '" + this.email + "', 'telefone': " + this.telefone +"}}";
+    }	
+
 	
 }

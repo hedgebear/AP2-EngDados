@@ -175,13 +175,13 @@ public class AlunoDAO {
     // Método para atualização de dados na tabela
     public void atualizarAluno(Aluno aluno) {
         try {
-            String sql = "UPDATE aluno SET nome = ?, cpf = ?, email = ? WHERE id = ?";
+            String sql = "UPDATE aluno SET nome = ?, cpf = ?, email = ? WHERE matricula = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setString(1, aluno.getNome());
                 pstm.setString(2, aluno.getCpf());
                 pstm.setString(3, aluno.getEmail());
-                pstm.setInt(4, aluno.getId());
+                pstm.setString(4, aluno.getMatricula());
 
                 pstm.execute();
             }

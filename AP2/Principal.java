@@ -152,17 +152,24 @@ public class Principal{
         adao.createAlunoSemTurma(aluno3);
         adao.createAlunoSemTurma(aluno4);
         adao.createAlunoSemTurma(aluno5);
+        adao.createAlunoSemTurma(aluno6);
         fdao.create(fatura1, aluno1);
         fdao.create(fatura7, aluno1);
         mdao.createComProfessor(modalidade1);
         pdao.createProfessor(professor1);
-        tdao.createComAluno(turma1, professor1, modalidade1);
-        tdao.createComAluno(turma2, professor1, modalidade1);
+        mdao.createComProfessor(modalidade2);
+        pdao.createProfessor(professor2);
+        // tdao.createComAluno(turma1, professor1, modalidade1);
+        // tdao.createComAluno(turma2, professor1, modalidade1);
+        // tdao.createComAluno(turma3, professor1, modalidade2);
+        // tdao.createComAluno(turma4, professor2, modalidade1);
+        // tdao.createComAluno(turma5, professor2, modalidade2);
+        // tdao.createComAluno(turma6, professor2, modalidade2);
 
  
         //selecionando todos os objetos do banco
         ArrayList<Aluno> alunos =  adao.retriveAll();
-        ArrayList<Aluno> alunosTurma =  adao.retriveAllAlunosComTurma();
+        //ArrayList<Aluno> alunosTurma =  adao.retriveAllAlunosComTurma();
         ArrayList<Fatura> faturas = fdao.retriveAllFaturas();
         ArrayList<Turma> turmas = tdao.retriveAllTurmasComAlunos();
         ArrayList<Modalidade> modalidades = mdao.retriveAll();
@@ -172,10 +179,10 @@ public class Principal{
         for (Aluno aluno : alunos) {
             System.out.println(aluno);
         }
-        System.out.println("teste dos alunos com turma\n");
-        for (Aluno aluno : alunosTurma) {
-            System.out.println(aluno);
-        }
+        // System.out.println("teste dos alunos com turma\n");
+        // for (Aluno aluno : alunosTurma) {
+        //     System.out.println(aluno);
+        // }
         System.out.println("teste das faturas\n");
         for (Fatura fatura : faturas) {
              System.out.println(fatura);
@@ -194,8 +201,14 @@ public class Principal{
         }
 
         //selecionando apenas um objeto pelo banco
-
+        System.out.println("apenas um objeto\n");
+        // adao.consultarAlunoMatricula("202206995211");
+        // fdao.consultarfatura(fatura6);
+        // mdao.consultarModalidadeCodigo(17);
+        // pdao.consultarProfessorCodigo(2);
         //upgrade de objetos do banco
+        //Aluno aluno13 = new Aluno("Maria Oliveira Moraes", "21011122500", "202203795111", "mariaMoraes@gmail.com", 979815773);
+        //adao.atualizarAluno(aluno13);
         
         //deletando objetos do banco
 

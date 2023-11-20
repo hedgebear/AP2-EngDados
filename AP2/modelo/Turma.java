@@ -2,7 +2,6 @@ package modelo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Turma {
 
@@ -117,16 +116,15 @@ public class Turma {
     }
 	
 	@Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Turma: ").append(codigo_turma)
-          .append(", Data: ").append(data_turma)
-          .append(", Hora: ").append(hora_turma)
-          .append(", Modalidade: ").append(modalidade)
-          .append(", Professor: ").append(professor)
-          .append(", Alunos: ").append(Arrays.toString(alunos.toArray()));
-        return sb.toString();
-    }
+	public String toString() {
+        return "{'Turma': {'id': " + this.id +
+               ", 'codigo_turma': " + this.codigo_turma +
+               ", 'data_turma': '" + this.data_turma +
+               "', 'hora_turma': '" + this.hora_turma +
+               "', 'modalidade': '" + this.modalidade +
+               "', 'professor': " + this.professor +
+               "', 'alunos': " + this.alunos +
+               "}}";
+	}
 
-	
 }
