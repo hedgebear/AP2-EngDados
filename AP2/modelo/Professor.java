@@ -99,9 +99,11 @@ public class Professor {
 
     @Override
     public String toString() {
-        return "{'Professor':{'id': " + this.id + ", 'codigo_professor': " + this.codigo_professor 
-        + ", 'nome': '" + this.nome + "', 'cpf': '" + this.cpf + "', 'especialização': '" + this.especializacao 
-        + "', 'contaBanco': '" + this.contaBanco + "', 'Email': '" + this.email + "'}}";
+        return "{'Professor':{'id': " + this.id + ", 'nome': '" + this.nome 
+        + "', 'codigo_professor': " + this.codigo_professor + ", 'cpf': '" + this.cpf 
+        + "', 'telefone': " + this.telefone + ", 'especializacao': '" + this.especializacao 
+        + "', 'email': '" + this.email + "', 'contaBanco': '" + this.contaBanco + "'}}";
     }
+
 
 }

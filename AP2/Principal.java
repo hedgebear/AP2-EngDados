@@ -40,17 +40,17 @@ public class Principal{
         Turma turma6 = new Turma(28, LocalDate.of(2023, 10, 12), "18:00", modalidade2, professor2);
 
         Fatura fatura1 = new Fatura(2000,LocalDate.of(2023,11,30),1,aluno1);
-        Fatura fatura7 = new Fatura(2000,LocalDate.of(2023,12,30),7,aluno1);
+        Fatura fatura7 = new Fatura(2300,LocalDate.of(2023,12,30),7,aluno1);
         Fatura fatura2 = new Fatura(1500, LocalDate.of(2023, 11, 15), 2, aluno2);
-        Fatura fatura8 = new Fatura(1500, LocalDate.of(2023, 12, 15), 8, aluno2);
+        Fatura fatura8 = new Fatura(1300, LocalDate.of(2023, 12, 15), 8, aluno2);
         Fatura fatura3 = new Fatura(1800, LocalDate.of(2023, 11, 20), 3, aluno3);
-        Fatura fatura9 = new Fatura(1800, LocalDate.of(2023, 12, 20), 9, aluno3);
+        Fatura fatura9 = new Fatura(1400, LocalDate.of(2023, 12, 20), 9, aluno3);
         Fatura fatura4 = new Fatura(2000, LocalDate.of(2023, 11, 25), 4, aluno4);
-        Fatura fatura10 = new Fatura(2000, LocalDate.of(2023, 12, 25), 10, aluno4);
+        Fatura fatura10 = new Fatura(2700, LocalDate.of(2023, 12, 25), 10, aluno4);
         Fatura fatura5 = new Fatura(1700, LocalDate.of(2023, 11, 28), 5, aluno5);
-        Fatura fatura11 = new Fatura(1700, LocalDate.of(2023, 12, 28), 11, aluno5);
+        Fatura fatura11 = new Fatura(1600, LocalDate.of(2023, 12, 28), 11, aluno5);
         Fatura fatura6 = new Fatura(1900, LocalDate.of(2023, 11, 1), 6, aluno6);
-        Fatura fatura12 = new Fatura(1900, LocalDate.of(2023, 12, 1), 12, aluno6);
+        Fatura fatura12 = new Fatura(3100, LocalDate.of(2023, 12, 1), 12, aluno6);
 
         turma1.addAluno(aluno1);
         turma1.addAluno(aluno2);
@@ -150,28 +150,47 @@ public class Principal{
         adao.createAlunoSemTurma(aluno1);
         adao.createAlunoSemTurma(aluno2);
         adao.createAlunoSemTurma(aluno3);
+        adao.createAlunoSemTurma(aluno4);
+        adao.createAlunoSemTurma(aluno5);
+        fdao.create(fatura1, aluno1);
+        fdao.create(fatura7, aluno1);
         mdao.createComProfessor(modalidade1);
         pdao.createProfessor(professor1);
         tdao.createComAluno(turma1, professor1, modalidade1);
         tdao.createComAluno(turma2, professor1, modalidade1);
-        adao.createAlunoComTurma(aluno4);
-        adao.createAlunoSemTurma(aluno5);
 
  
         //selecionando todos os objetos do banco
         ArrayList<Aluno> alunos =  adao.retriveAll();
+        ArrayList<Aluno> alunosTurma =  adao.retriveAllAlunosComTurma();
         ArrayList<Fatura> faturas = fdao.retriveAllFaturas();
         ArrayList<Turma> turmas = tdao.retriveAllTurmasComAlunos();
+        ArrayList<Modalidade> modalidades = mdao.retriveAll();
+        ArrayList<Professor> professores = pdao.retriveAll();
+
         System.out.println("teste dos alunos\n");
         for (Aluno aluno : alunos) {
             System.out.println(aluno);
         }
+        System.out.println("teste dos alunos com turma\n");
+        for (Aluno aluno : alunosTurma) {
+            System.out.println(aluno);
+        }
+        System.out.println("teste das faturas\n");
         for (Fatura fatura : faturas) {
              System.out.println(fatura);
         }
         System.out.println("Teste de turmas com aluno\n");
         for (Turma turma : turmas) {
             System.out.println(turma);
+        }
+        System.out.println("teste das modalidades\n");
+        for (Modalidade modalidade : modalidades) {
+             System.out.println(modalidade);
+        }
+        System.out.println("teste dos professores\n");
+        for (Professor professor : professores) {
+             System.out.println(professor);
         }
 
         //selecionando apenas um objeto pelo banco
