@@ -26,74 +26,113 @@ public class Principal{
         Aluno aluno4 = new Aluno("Karlos conka", "01511122500","202203795241","beata@gmail.com",969815773 );
         Aluno aluno5 = new Aluno("josias ana", "14011122547","202206995217","bingAS@gmail.com",969885773 );
         Aluno aluno6 = new Aluno("Maria Oliveira", "21011122500", "202203795111", "maria@gmail.com", 979815773);
-        Aluno aluno7 = new Aluno("Roberto Silva", "32111122547", "202206995222", "roberto@gmail.com", 989885773);
-        Aluno aluno8 = new Aluno("Carla Souza", "12345678901", "202203795233", "carla@gmail.com", 959815773);
-        Aluno aluno9 = new Aluno("Fernanda Lima", "98765432101", "202206995244", "fernanda@gmail.com", 929885773);
-        Aluno aluno10 = new Aluno("João Pereira", "55511122500", "202203795255", "joao@gmail.com", 909815773);
 
-        Turma turma1 = new Turma(23,LocalDate.of(2023,10,10) , "13:00", modalidad1, professor1);
-        Turma turma2 = new Turma(24,LocalDate.of(2023,10,10) , "14:00", modalidad1, professor1);
+        Professor professor1 = new Professor(1, "Janio quadros",  "11554426958", "cantor", "090909", "cachotto@gmail.com",969885773 );
+        Modalidade modalidade1 = new Modalidade("Natacao", 17);
+        Professor professor2 = new Professor(2, "Ana Paula", "22554426958", "coreógrafa", "080808", "ana@gmail.com", 959885773);
+        Modalidade modalidade2 = new Modalidade("Dança Contemporânea", 18);
+
+        Turma turma1 = new Turma(23,LocalDate.of(2023,10,10) , "13:00", modalidade1, professor1);
+        Turma turma2 = new Turma(24,LocalDate.of(2023,10,10) , "14:00", modalidade1, professor1);
         Turma turma3 = new Turma(25, LocalDate.of(2023, 10, 11), "15:00", modalidade2, professor2);
         Turma turma4 = new Turma(26, LocalDate.of(2023, 10, 11), "16:00", modalidade2, professor2);
         Turma turma5 = new Turma(27, LocalDate.of(2023, 10, 12), "17:00", modalidade2, professor2);
         Turma turma6 = new Turma(28, LocalDate.of(2023, 10, 12), "18:00", modalidade2, professor2);
-        Turma turma7 = new Turma(29, LocalDate.of(2023, 10, 13), "19:00", modalidade2, professor2);
 
-        Fatura fatura1 = new Fatura(2000,LocalDate.of(2023,11,30),0001,aluno1);
-        Fatura fatura2 = new Fatura(1500, LocalDate.of(2023, 11, 15), 0002, aluno2);
-        Fatura fatura3 = new Fatura(1800, LocalDate.of(2023, 11, 20), 0003, aluno3);
-        Fatura fatura4 = new Fatura(2000, LocalDate.of(2023, 11, 25), 0004, aluno4);
-        Fatura fatura5 = new Fatura(1700, LocalDate.of(2023, 11, 28), 0005, aluno5);
-        Fatura fatura6 = new Fatura(1900, LocalDate.of(2023, 12, 1), 0006, aluno6);
+        Fatura fatura1 = new Fatura(2000,LocalDate.of(2023,11,30),1,aluno1);
+        Fatura fatura7 = new Fatura(2000,LocalDate.of(2023,12,30),7,aluno1);
+        Fatura fatura2 = new Fatura(1500, LocalDate.of(2023, 11, 15), 2, aluno2);
+        Fatura fatura8 = new Fatura(1500, LocalDate.of(2023, 12, 15), 8, aluno2);
+        Fatura fatura3 = new Fatura(1800, LocalDate.of(2023, 11, 20), 3, aluno3);
+        Fatura fatura9 = new Fatura(1800, LocalDate.of(2023, 12, 20), 9, aluno3);
+        Fatura fatura4 = new Fatura(2000, LocalDate.of(2023, 11, 25), 4, aluno4);
+        Fatura fatura10 = new Fatura(2000, LocalDate.of(2023, 12, 25), 10, aluno4);
+        Fatura fatura5 = new Fatura(1700, LocalDate.of(2023, 11, 28), 5, aluno5);
+        Fatura fatura11 = new Fatura(1700, LocalDate.of(2023, 12, 28), 11, aluno5);
+        Fatura fatura6 = new Fatura(1900, LocalDate.of(2023, 11, 1), 6, aluno6);
+        Fatura fatura12 = new Fatura(1900, LocalDate.of(2023, 12, 1), 12, aluno6);
 
-        Professor professor1 = new Professor(1, "Janio quadros",  "11554426958", "cantor", "090909", "cachotto@gmail.com",969885773 );
-        Modalidade modalidad1 = new Modalidade("Natacao", 017);
-        Professor professor2 = new Professor(2, "Ana Paula", "22554426958", "coreógrafa", "080808", "ana@gmail.com", 959885773);
-        Modalidade modalidade2 = new Modalidade("Dança Contemporânea", 018);
-
-        
-
-        
         turma1.addAluno(aluno1);
         turma1.addAluno(aluno2);
         turma1.addAluno(aluno3);
+
         turma2.addAluno(aluno1);
         turma2.addAluno(aluno2);
         turma2.addAluno(aluno3);
-        // Pessoa pessoa2 = new Pessoa("Gabriel Martinez", "00011122211", LocalDate.of(2001, 2, 05));
-        // Telefone telefone20 = new Telefone(TipoTelefone.Celular,55,21,989963144);
-        // Telefone telefone21 = new Telefone(TipoTelefone.Residencial,55,21,22298312);
-        // pessoa2.addTelefone(telefone20);
-        // pessoa2.addTelefone(telefone21);  
-        
-        // Pessoa pessoa3 = new Pessoa("Joao Curvello", "00011122222", LocalDate.of(2002, 3, 10));
-        // Telefone telefone30 = new Telefone(TipoTelefone.Celular,55,21,994378235);
-        // pessoa3.addTelefone(telefone30);
 
-        // Pessoa pessoa4 = new Pessoa("Joao Correia", "00011122233", LocalDate.of(2003, 4, 15));
-        // Telefone telefone40 = new Telefone(TipoTelefone.Celular,55,21,964695794);
-        // Telefone telefone41 = new Telefone(TipoTelefone.Celular,55,21,96469579);
-        // pessoa4.addTelefone(telefone40);
-        // pessoa4.addTelefone(telefone41);  
+        turma3.addAluno(aluno3);
+        turma3.addAluno(aluno4);
+        turma3.addAluno(aluno5);
+        turma3.addAluno(aluno6);
 
-        // Pessoa pessoa5 = new Pessoa("Joao Constant", "00011122244", LocalDate.of(2004, 5, 20)); //55 21 999309064
-        // Pessoa pessoa6 = new Pessoa("Matheus Herzog", "00011122255", LocalDate.of(2005, 6, 25)); //55 21 960197272  55 21 96525522
-        // Pessoa pessoa7 = new Pessoa("Thaís Bustamante", "00011122266", LocalDate.of(2000, 7, 30)); //55 21 973013773  55 21 24870553
-        // Pessoa pessoa8 = new Pessoa("Théo Mauricio", "00011122277", LocalDate.of(2001, 8, 01)); //55 24 992675080  55 24 92675080
-        // Pessoa pessoa9 = new Pessoa("Victor Lobianco", "00011122288", LocalDate.of(2002, 9, 05));//55 21 992471219
+        turma4.addAluno(aluno3);
+        turma4.addAluno(aluno4);
+        turma4.addAluno(aluno5);
+        turma4.addAluno(aluno6);
+
+        turma5.addAluno(aluno5);
+        turma5.addAluno(aluno6);
+
+        turma6.addAluno(aluno5);
+        turma6.addAluno(aluno6);
+
+        aluno1.addTurma(turma1);
+        aluno1.addTurma(turma2);
+
+        aluno2.addTurma(turma1);
+        aluno2.addTurma(turma2);
+
+        aluno3.addTurma(turma1);
+        aluno3.addTurma(turma2);
+        aluno3.addTurma(turma3);
+        aluno3.addTurma(turma4);
+
+        aluno4.addTurma(turma3);
+        aluno4.addTurma(turma4);
+
+        aluno5.addTurma(turma3);
+        aluno5.addTurma(turma4);
+        aluno5.addTurma(turma5);
+        aluno5.addTurma(turma6);
+
+        aluno6.addTurma(turma3);
+        aluno6.addTurma(turma4);
+        aluno6.addTurma(turma5);
+        aluno6.addTurma(turma6);
+
 
         
         System.out.println(aluno1);
-        System.out.println(fatura1);
+        System.out.println(aluno2);
+        System.out.println(aluno3);
+        System.out.println(aluno4);
+        System.out.println(aluno5);
+        System.out.println(aluno6);
 
-        // System.out.println(pessoa2);
-        // System.out.println(pessoa3);
-        // System.out.println(pessoa4);
-        // System.out.println(pessoa5);
-        // System.out.println(pessoa6);
-        // System.out.println(pessoa7);
-        // System.out.println(pessoa8);
-        // System.out.println(pessoa9);
+        System.out.println(professor1);
+        System.out.println(modalidade1);
+        System.out.println(professor2);
+        System.out.println(modalidade2);
+
+        System.out.println(turma1);
+        System.out.println(turma2);
+        System.out.println(turma3);
+        System.out.println(turma4);
+        System.out.println(turma5);
+        System.out.println(turma6);
+
+        System.out.println(fatura1);
+        System.out.println(fatura2);
+        System.out.println(fatura3);
+        System.out.println(fatura4);
+        System.out.println(fatura5);
+        System.out.println(fatura6);
+        System.out.println(fatura7);
+        System.out.println(fatura8);
+        System.out.println(fatura9);
+        System.out.println(fatura10);
+        System.out.println(fatura11);
+        System.out.println(fatura12);
         System.out.println("Acabei de printar os objetos em memoria\n\n\n");
 
         //Fazendo a conexão com o banco
@@ -111,21 +150,13 @@ public class Principal{
         adao.createAlunoSemTurma(aluno1);
         adao.createAlunoSemTurma(aluno2);
         adao.createAlunoSemTurma(aluno3);
-        mdao.createComProfessor(modalidad1);
+        mdao.createComProfessor(modalidade1);
         pdao.createProfessor(professor1);
-        tdao.createComAluno(turma1, professor1, modalidad1);
-        tdao.createComAluno(turma2, professor1, modalidad1);
+        tdao.createComAluno(turma1, professor1, modalidade1);
+        tdao.createComAluno(turma2, professor1, modalidade1);
         adao.createAlunoComTurma(aluno4);
         adao.createAlunoSemTurma(aluno5);
-        //eu não acredito em fadas
-        // pdao.createComTelefone(pessoa2);
-        // pdao.createComTelefone(pessoa3);
-        // pdao.createComTelefone(pessoa4);
-        // pdao.createComTelefone(pessoa5);
-        // pdao.createComTelefone(pessoa6);
-        // pdao.createComTelefone(pessoa7);
-        // pdao.createComTelefone(pessoa8);
-        // pdao.createComTelefone(pessoa9);
+
  
         //selecionando todos os objetos do banco
         ArrayList<Aluno> alunos =  adao.retriveAll();
