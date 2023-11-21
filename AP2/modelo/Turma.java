@@ -124,7 +124,7 @@ public class Turma {
                "', 'modalidade': '" + this.modalidade +
                "', 'professor': " + this.professor +
                "', 'alunos': " + this.alunos.toString() +
-               "}}";
+               "}}\n";
 	}
 
 }

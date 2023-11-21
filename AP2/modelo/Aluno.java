@@ -129,7 +129,7 @@ public class Aluno {
             result.setLength(result.length() - 2);
         }
 
-        result.append("]}");
+        result.append("]}\n");
 
         return result.toString();
     }
