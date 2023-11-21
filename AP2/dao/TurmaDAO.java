@@ -214,7 +214,7 @@ public class TurmaDAO {
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setInt(1,turma.getId());
 
-                try (ResultSet rst = pstm.getResultSet()) {
+                try (ResultSet rst = pstm.executeQuery()) {
                     while(rst.next()) {
                         if (t == null) {
                             int tur_id = rst.getInt(1);
