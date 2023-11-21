@@ -120,9 +120,9 @@ public class Aluno {
 	public String toString() {
         StringBuilder result = new StringBuilder("{'Aluno':{'id': " + this.id + ", 'nome': '" + this.nome +
 													"', 'cpf': '" + this.cpf + "', 'matricula': '" + this.matricula +
-													"', 'email': '" + this.email + "', 'telefone': " + this.telefone );
+													"', 'email': '" + this.email + "', 'telefone': " + this.telefone + ", Turmas=[" );
         for (Turma turma : turmas) {
-            result.append(turma.getId()).append(", ");
+            result.append(turma.getId() - 1).append(", ");
         }
 
         if (!turmas.isEmpty()) {

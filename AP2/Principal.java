@@ -236,11 +236,11 @@ public class Principal{
 
         //selecionando apenas um objeto pelo banco
         System.out.println("apenas um objeto\n");
-        System.out.println(fdao.consultarfatura(fatura6));
+        System.out.println(fdao.consultarfatura(fatura7));
         System.out.println(adao.consultarAlunoMatricula("202206995211"));
         System.out.println(mdao.consultarModalidadeCodigo(17));
         System.out.println(pdao.consultarProfessorCodigo(2));
-        System.out.println(tdao.consultarTurmaEspcComAlunos(turma6));
+        System.out.println(tdao.consultarTurmaEspcComAlunos(turma3));
         System.out.println(tdao.consultarTurmaEspcSemAlunos(turma6));
         //upgrade de objetos do banco
         Aluno aluno13 = new Aluno("Maria Oliveira Moraes", "21011122500", "202203795111", "mariaMoraes@gmail.com", 979815773);

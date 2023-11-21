@@ -108,7 +108,7 @@ public class FaturaDAO {
         AlunoDAO adao = new AlunoDAO(connection);
         try {
             String sql = "SELECT id, valor, data_vencimento, codigo_fatura, fk_aluno FROM fatura "
-                    + "WHERE codigo_fatura = ?";
+                    + "WHERE codigo_fatura = ? ";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setInt(1,fatura.getCodigo_Fatura());
