@@ -23,14 +23,20 @@ public class Principal{
         Aluno aluno1 = new Aluno("Lucas Fernandes", "00011122200","202203369016","lucas2002mkx@gmail.com",999665643 );
         Aluno aluno2 = new Aluno("Beatriz Turi", "00011122500","202203795211","beatrizturiparaujo@gmail.com",969815773 );
         Aluno aluno3 = new Aluno("Bingo da Silva", "00011122547","202206995211","bingoS@gmail.com",969885773 );
-        Aluno aluno4 = new Aluno("Karlos conka", "01511122500","202203795241","beata@gmail.com",969815773 );
-        Aluno aluno5 = new Aluno("josias ana", "14011122547","202206995217","bingAS@gmail.com",969885773 );
+        Aluno aluno4 = new Aluno("Karlos conka", "01511122500","202203795241","beata@gmail.com",969815573 );
+        Aluno aluno5 = new Aluno("josias ana", "14011122547","202206995217","bingAS@gmail.com",949885773 );
         Aluno aluno6 = new Aluno("Maria Oliveira", "21011122500", "202203795111", "maria@gmail.com", 979815773);
+        Aluno aluno8 = new Aluno("Mario Armario", "21011682500", "202203795175", "marioArmario@gmail.com", 979845773);
+        Aluno aluno9 = new Aluno("Ludimilo", "45011122500", "202207895111", "LudMilo@gmail.com", 976815773);
+        Aluno aluno10 = new Aluno("Luizo Sonzo", "21022222500", "202903795111", "Luizo@gmail.com", 939815773);
+        
+        
 
-        Professor professor1 = new Professor(1, "Janio quadros",  "11554426958", "cantor", "090909", "cachotto@gmail.com",969885773 );
+        Professor professor1 = new Professor(1, "Janio quadros",  "11554426958", "lutador", "090909", "cachotto@gmail.com",969885773 );
         Modalidade modalidade1 = new Modalidade("Natacao", 17);
         Professor professor2 = new Professor(2, "Ana Paula", "22554426958", "coreógrafa", "080808", "ana@gmail.com", 959885773);
         Modalidade modalidade2 = new Modalidade("Dança Contemporânea", 18);
+        Modalidade modalidade4 = new Modalidade("judo", 19);
 
         Turma turma1 = new Turma(23,LocalDate.of(2023,10,10) , "13:00", modalidade1, professor1);
         Turma turma2 = new Turma(24,LocalDate.of(2023,10,10) , "14:00", modalidade1, professor1);
@@ -38,6 +44,10 @@ public class Principal{
         Turma turma4 = new Turma(26, LocalDate.of(2023, 10, 11), "16:00", modalidade2, professor2);
         Turma turma5 = new Turma(27, LocalDate.of(2023, 10, 12), "17:00", modalidade2, professor2);
         Turma turma6 = new Turma(28, LocalDate.of(2023, 10, 12), "18:00", modalidade2, professor2);
+        Turma turma8 = new Turma(29, LocalDate.of(2023, 10, 12), "19:00", modalidade4, professor1);
+        Turma turma9 = new Turma(30, LocalDate.of(2023, 10, 12), "20:00", modalidade4, professor1);
+        
+
 
         Fatura fatura1 = new Fatura(2000,LocalDate.of(2023,11,30),1,aluno1);
         Fatura fatura7 = new Fatura(2300,LocalDate.of(2023,12,30),7,aluno1);
@@ -206,13 +216,19 @@ public class Principal{
         System.out.println(adao.consultarAlunoMatricula("202206995211"));
         System.out.println(mdao.consultarModalidadeCodigo(17));
         System.out.println(pdao.consultarProfessorCodigo(2));
+        System.out.println(tdao.consultarTurmaEspcComAlunos(turma6));
+        System.out.println(tdao.consultarTurmaEspcSemAlunos(turma6));
         //upgrade de objetos do banco
         Aluno aluno13 = new Aluno("Maria Oliveira Moraes", "21011122500", "202203795111", "mariaMoraes@gmail.com", 979815773);
         adao.atualizarAluno(aluno13);
-        fdao.atualizarFatura(fatura12);
-        mdao.atualizarModalidade(modalidade2);
-        pdao.atualizarProfessor(professor2);
-        tdao.atualizarTurma(turma6);
+        Fatura fatura13 = new Fatura(50, LocalDate.of(2023, 12, 10),12 , aluno13);
+        fdao.atualizarFatura(fatura13);
+        Modalidade modalidade3 = new Modalidade("Boliche", 18);
+        mdao.atualizarModalidade(modalidade3);
+        Professor professor3 = new Professor(2, "Holando", "19815730715", "crossfit", "030621", "holando@gmail.com", 959885473);
+        pdao.atualizarProfessor(professor3);
+        Turma turma7 = new Turma(28, LocalDate.of(2023, 7, 12), "18:00", modalidade3, professor3);
+        tdao.atualizarTurma(turma7);
         //deletando objetos do banco
         adao.deletarAluno(aluno13);
         fdao.deletarFatura(fatura12);
