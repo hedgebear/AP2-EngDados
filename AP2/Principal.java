@@ -169,12 +169,12 @@ public class Principal{
         pdao.createProfessor(professor1);
         mdao.createComProfessor(modalidade2);
         pdao.createProfessor(professor2);
-        // tdao.createComAluno(turma1, professor1, modalidade1);
-        // tdao.createComAluno(turma2, professor1, modalidade1);
-        // tdao.createComAluno(turma3, professor1, modalidade2);
-        // tdao.createComAluno(turma4, professor2, modalidade1);
-        // tdao.createComAluno(turma5, professor2, modalidade2);
-        // tdao.createComAluno(turma6, professor2, modalidade2);
+        tdao.createComAluno(turma1, professor1, modalidade1);
+        tdao.createComAluno(turma2, professor1, modalidade1);
+        tdao.createComAluno(turma3, professor1, modalidade2);
+        tdao.createComAluno(turma4, professor2, modalidade1);
+        tdao.createComAluno(turma5, professor2, modalidade2);
+        tdao.createComAluno(turma6, professor2, modalidade2);
 
  
         //selecionando todos os objetos do banco
