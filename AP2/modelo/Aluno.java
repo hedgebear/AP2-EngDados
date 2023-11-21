@@ -122,10 +122,9 @@ public class Aluno {
 													"', 'cpf': '" + this.cpf + "', 'matricula': '" + this.matricula +
 													"', 'email': '" + this.email + "', 'telefone': " + this.telefone );
         for (Turma turma : turmas) {
-            result.append(turma.id).append(", ");
+            result.append(turma.getId()).append(", ");
         }
 
-        // Remover a última vírgula e espaço em excesso
         if (!turmas.isEmpty()) {
             result.setLength(result.length() - 2);
         }
