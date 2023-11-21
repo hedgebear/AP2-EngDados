@@ -113,7 +113,7 @@ public class FaturaDAO {
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setInt(1,fatura.getCodigo_Fatura());
 
-                try (ResultSet rst = pstm.getResultSet()) {
+                try (ResultSet rst = pstm.executeQuery()) {
                     if (rst.next()) {
                         int fat_id = rst.getInt(7);
                         float valor = rst.getInt(8);
