@@ -70,11 +70,11 @@ public class ModalidadeDAO {
 
     public void atualizarModalidade(Modalidade modalidade) {
         try {
-            String sql = "UPDATE modalidade SET nome = ? WHERE id = ?";
+            String sql = "UPDATE modalidade SET nome = ? WHERE codigo_modalidade = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setString(1, modalidade.getNome());
-                pstm.setInt(2, modalidade.getId());
+                pstm.setInt(2, modalidade.getCodigo_Modalidade());
 
                 pstm.execute();
             }

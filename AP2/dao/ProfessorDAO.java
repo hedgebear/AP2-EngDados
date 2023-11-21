@@ -77,7 +77,7 @@ public class ProfessorDAO {
 
     public void atualizarProfessor(Professor professor) {
         try {
-            String sql = "UPDATE professor SET nome = ?, cpf = ?, telefone = ?, email = ?, especializacao = ?, contaBanco = ? WHERE id = ?";
+            String sql = "UPDATE professor SET nome = ?, cpf = ?, telefone = ?, email = ?, especializacao = ?, contaBanco = ? WHERE codigo_professor = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setString(1, professor.getNome());
@@ -86,7 +86,7 @@ public class ProfessorDAO {
                 pstm.setString(4, professor.getEmail());
                 pstm.setString(5, professor.getEspecializacao());
                 pstm.setString(6, professor.getContaBanco());
-                pstm.setInt(7, professor.getId());
+                pstm.setInt(7, professor.getCodigo_professor());
 
                 pstm.execute();
             }

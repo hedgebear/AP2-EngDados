@@ -122,5 +122,23 @@ public class Aluno {
                "', 'email': '" + this.email + "', 'telefone': " + this.telefone +"}}";
     }	
 
+	public String toString() {
+        StringBuilder result = new StringBuilder("{'Aluno':{'id': " + this.id + ", 'nome': '" + this.nome +
+													"', 'cpf': '" + this.cpf + "', 'matricula': '" + this.matricula +
+													"', 'email': '" + this.email + "', 'telefone': " + this.telefone );
+        for (Turma turma : turmas) {
+            result.append(turma).append(", ");
+        }
+
+        // Remover a última vírgula e espaço em excesso
+        if (!turmas.isEmpty()) {
+            result.setLength(result.length() - 2);
+        }
+
+        result.append("]}");
+
+        return result.toString();
+    }
+}
 	
 }
