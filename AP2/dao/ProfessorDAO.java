@@ -97,7 +97,7 @@ public class ProfessorDAO {
 
     public void deletarProfessor(Professor professor) {
         try {
-            String sql = "DELETE FROM professor WHERE id = ?";
+            String sql = "DELETE FROM professor WHERE  = codigo_professor ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setInt(1, professor.getId());
