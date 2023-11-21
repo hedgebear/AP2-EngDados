@@ -182,7 +182,7 @@ public class TurmaDAO {
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
                 pstm.setInt(1,turma.getId());
 
-                try (ResultSet rst = pstm.getResultSet()) {
+                try (ResultSet rst = pstm.executeQuery()) {
                     if (rst.next()) {
                         int tur_id = rst.getInt(1);
                         int cod_turma = rst.getInt(2);
