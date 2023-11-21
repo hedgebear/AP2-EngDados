@@ -115,19 +115,14 @@ public class Aluno {
         this.turmas.remove(turma);
     }
 	
-	@Override
-    public String toString() {
-        return "{'Aluno':{'id': " + this.id + ", 'nome': '" + this.nome +
-               "', 'cpf': '" + this.cpf + "', 'matricula': '" + this.matricula +
-               "', 'email': '" + this.email + "', 'telefone': " + this.telefone +"}}";
-    }	
+	@Override	
 
 	public String toString() {
         StringBuilder result = new StringBuilder("{'Aluno':{'id': " + this.id + ", 'nome': '" + this.nome +
 													"', 'cpf': '" + this.cpf + "', 'matricula': '" + this.matricula +
 													"', 'email': '" + this.email + "', 'telefone': " + this.telefone );
         for (Turma turma : turmas) {
-            result.append(turma).append(", ");
+            result.append(turma.id).append(", ");
         }
 
         // Remover a última vírgula e espaço em excesso
@@ -139,6 +134,4 @@ public class Aluno {
 
         return result.toString();
     }
-}
-	
 }
