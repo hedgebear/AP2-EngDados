@@ -169,7 +169,7 @@ public class Principal{
  
         //selecionando todos os objetos do banco
         ArrayList<Aluno> alunos =  adao.retriveAll();
-        //ArrayList<Aluno> alunosTurma =  adao.retriveAllAlunosComTurma();
+        ArrayList<Aluno> alunosTurma =  adao.retriveAllAlunosComTurma();
         ArrayList<Fatura> faturas = fdao.retriveAllFaturas();
         ArrayList<Turma> turmas = tdao.retriveAllTurmasComAlunos();
         ArrayList<Modalidade> modalidades = mdao.retriveAll();
@@ -179,10 +179,10 @@ public class Principal{
         for (Aluno aluno : alunos) {
             System.out.println(aluno);
         }
-        // System.out.println("teste dos alunos com turma\n");
-        // for (Aluno aluno : alunosTurma) {
-        //     System.out.println(aluno);
-        // }
+        System.out.println("teste dos alunos com turma\n");
+         for (Aluno aluno : alunosTurma) {
+             System.out.println(aluno);
+         }
         System.out.println("teste das faturas\n");
         for (Fatura fatura : faturas) {
              System.out.println(fatura);
@@ -202,16 +202,23 @@ public class Principal{
 
         //selecionando apenas um objeto pelo banco
         System.out.println("apenas um objeto\n");
-        // adao.consultarAlunoMatricula("202206995211");
-        // fdao.consultarfatura(fatura6);
-        // mdao.consultarModalidadeCodigo(17);
-        // pdao.consultarProfessorCodigo(2);
+        System.out.println(fdao.consultarfatura(fatura6));
+        System.out.println(adao.consultarAlunoMatricula("202206995211"));
+        System.out.println(mdao.consultarModalidadeCodigo(17));
+        System.out.println(pdao.consultarProfessorCodigo(2));
         //upgrade de objetos do banco
-        //Aluno aluno13 = new Aluno("Maria Oliveira Moraes", "21011122500", "202203795111", "mariaMoraes@gmail.com", 979815773);
-        //adao.atualizarAluno(aluno13);
-        
+        Aluno aluno13 = new Aluno("Maria Oliveira Moraes", "21011122500", "202203795111", "mariaMoraes@gmail.com", 979815773);
+        adao.atualizarAluno(aluno13);
+        fdao.atualizarFatura(fatura12);
+        mdao.atualizarModalidade(modalidade2);
+        pdao.atualizarProfessor(professor2);
+        tdao.atualizarTurma(turma6);
         //deletando objetos do banco
-
+        adao.deletarAluno(aluno13);
+        fdao.deletarFatura(fatura12);
+        mdao.deletarModalidade(modalidade2);
+        pdao.deletarProfessor(professor2);
+        tdao.deletarTurma(turma6);
     }
 
 }

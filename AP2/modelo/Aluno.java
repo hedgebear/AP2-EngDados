@@ -119,12 +119,6 @@ public class Aluno {
     public String toString() {
         return "{'Aluno':{'id': " + this.id + ", 'nome': '" + this.nome +
                "', 'cpf': '" + this.cpf + "', 'matricula': '" + this.matricula +
-               "', 'email': '" + this.email + "', 'telefone': " + this.telefone + "', 'Turmas': " + this.turmas +"}}";
-    }	
-
-    public String toString2() {
-        return "{'Aluno':{'id': " + this.id + ", 'nome': '" + this.nome +
-               "', 'cpf': '" + this.cpf + "', 'matricula': '" + this.matricula +
                "', 'email': '" + this.email + "', 'telefone': " + this.telefone +"}}";
     }	
 
