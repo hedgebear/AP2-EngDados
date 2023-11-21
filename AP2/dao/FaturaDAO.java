@@ -115,10 +115,10 @@ public class FaturaDAO {
 
                 try (ResultSet rst = pstm.executeQuery()) {
                     if (rst.next()) {
-                        int fat_id = rst.getInt(7);
-                        float valor = rst.getInt(8);
-                        LocalDate data_vencimento = rst.getObject(9, LocalDate.class);
-                        int cod_fatura = rst.getInt(10);
+                        int fat_id = rst.getInt(1);
+                        float valor = rst.getInt(2);
+                        LocalDate data_vencimento = rst.getObject(3, LocalDate.class);
+                        int cod_fatura = rst.getInt(4);
                         Aluno fk_aluno = adao.consultarAlunoMatricula(rst.getString("fk_aluno"));
                         f = new Fatura(fat_id, valor, data_vencimento, cod_fatura, fk_aluno);
                     }
