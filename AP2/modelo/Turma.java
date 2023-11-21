@@ -123,8 +123,7 @@ public class Turma {
                "', 'hora_turma': '" + this.hora_turma +
                "', 'modalidade': '" + this.modalidade +
                "', 'professor': " + this.professor +
-               "', 'alunos': " + this.alunos.toString() +
-               "}}\n";
+               "', 'alunos': " + alunos + "}}\n";
 	}
 
 }

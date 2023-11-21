@@ -209,10 +209,10 @@ public class TurmaDAO {
             + "FROM turma as t "
             + "LEFT JOIN aluno_turma AS at ON at.fk_turma = t.id "
             + "LEFT JOIN aluno AS a ON at.fk_aluno = a.id "
-            + "WHERE t.id = ?";
+            + "WHERE t.codigo_turma = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.setInt(1,turma.getId());
+                pstm.setInt(1,turma.getCodigo_Turma());
 
                 try (ResultSet rst = pstm.executeQuery()) {
                     while(rst.next()) {

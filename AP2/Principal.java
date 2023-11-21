@@ -191,8 +191,6 @@ public class Principal{
         tdao.createComAluno(turma4, professor2, modalidade1);
         tdao.createComAluno(turma5, professor2, modalidade2);
         tdao.createComAluno(turma6, professor2, modalidade2);
-
-        // outra forma de criar 
         mdao.createModalidade(modalidade4);
         tdao.createSemAluno(turma8, professor2, modalidade4);
         tdao.createSemAluno(turma9, professor1, modalidade4);

@@ -193,10 +193,10 @@ public class AlunoDAO {
     // Método para deleção de dados da tabela
     public void deletarAluno(Aluno aluno) {
         try {
-            String sql = "DELETE FROM aluno WHERE id = ?";
+            String sql = "DELETE FROM aluno WHERE matricula = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.setInt(1, aluno.getId());
+                pstm.setString(1, aluno.getMatricula());
 
                 pstm.execute();
             }

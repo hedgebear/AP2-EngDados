@@ -85,10 +85,10 @@ public class ModalidadeDAO {
 
     public void deletarModalidade(Modalidade modalidade) {
         try {
-            String sql = "DELETE FROM modalidade WHERE id = ?";
+            String sql = "DELETE FROM modalidade WHERE codigo_modalidade = ?";
 
             try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-                pstm.setInt(1, modalidade.getId());
+                pstm.setInt(1, modalidade.getCodigo_Modalidade());
 
                 pstm.execute();
             }
