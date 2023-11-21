@@ -165,9 +165,9 @@ public class Principal{
         adao.createAlunoSemTurma(aluno6);
         fdao.create(fatura1, aluno1);
         fdao.create(fatura7, aluno1);
-        mdao.createComProfessor(modalidade1);
+        mdao.createModalidade(modalidade1);
         pdao.createProfessor(professor1);
-        mdao.createComProfessor(modalidade2);
+        mdao.createModalidade(modalidade2);
         pdao.createProfessor(professor2);
         tdao.createComAluno(turma1, professor1, modalidade1);
         tdao.createComAluno(turma2, professor1, modalidade1);

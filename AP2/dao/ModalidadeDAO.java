@@ -21,7 +21,7 @@ public class ModalidadeDAO {
         this.connection = connection;
     }
 
-    public void createComProfessor(Modalidade modalidade) {
+    public void createModalidade(Modalidade modalidade) {
         try {
             String sql = "INSERT INTO modalidade (nome, codigo_modalidade) VALUES (?, ?)";
 
