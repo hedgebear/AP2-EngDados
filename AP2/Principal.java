@@ -86,6 +86,14 @@ public class Principal{
         turma6.addAluno(aluno5);
         turma6.addAluno(aluno6);
 
+        turma8.addAluno(aluno8);
+        turma8.addAluno(aluno9);
+        turma8.addAluno(aluno10);
+
+        turma9.addAluno(aluno8);
+        turma9.addAluno(aluno9);
+        turma9.addAluno(aluno10);
+
         aluno1.addTurma(turma1);
         aluno1.addTurma(turma2);
 
@@ -110,6 +118,14 @@ public class Principal{
         aluno6.addTurma(turma5);
         aluno6.addTurma(turma6);
 
+        aluno8.addTurma(turma8);
+        aluno8.addTurma(turma9);
+
+        aluno9.addTurma(turma8);
+        aluno9.addTurma(turma9);
+
+        aluno10.addTurma(turma8);
+        aluno10.addTurma(turma9);
 
         
         System.out.println(aluno1);
@@ -176,6 +192,14 @@ public class Principal{
         tdao.createComAluno(turma5, professor2, modalidade2);
         tdao.createComAluno(turma6, professor2, modalidade2);
 
+        // outra forma de criar 
+        mdao.createModalidade(modalidade4);
+        tdao.createSemAluno(turma8, professor2, modalidade4);
+        tdao.createSemAluno(turma9, professor1, modalidade4);
+        adao.createAlunoComTurma(aluno8);
+        adao.createAlunoComTurma(aluno9);
+        adao.createAlunoComTurma(aluno10);
+
  
         //selecionando todos os objetos do banco
         ArrayList<Aluno> alunos =  adao.retriveAll();
@@ -184,7 +208,7 @@ public class Principal{
         ArrayList<Turma> turmas = tdao.retriveAllTurmasComAlunos();
         ArrayList<Modalidade> modalidades = mdao.retriveAll();
         ArrayList<Professor> professores = pdao.retriveAll();
-
+        
         System.out.println("teste dos alunos\n");
         for (Aluno aluno : alunos) {
             System.out.println(aluno);
