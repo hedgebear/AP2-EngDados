@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`aluno_turma` (
   CONSTRAINT `Aluno_Turma`
     FOREIGN KEY (`fk_aluno`)
     REFERENCES `mydb`.`aluno` (`matricula`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `Turma_Aluno`
     FOREIGN KEY (`fk_turma`)
