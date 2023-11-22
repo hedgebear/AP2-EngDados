@@ -181,6 +181,10 @@ public class Principal{
         adao.createAlunoSemTurma(aluno6);
         fdao.create(fatura1, aluno1);
         fdao.create(fatura7, aluno1);
+        fdao.create(fatura2, aluno2);
+        fdao.create(fatura8, aluno2);
+        fdao.create(fatura3, aluno3);
+        fdao.create(fatura9, aluno3);
         mdao.createModalidade(modalidade1);
         pdao.createProfessor(professor1);
         mdao.createModalidade(modalidade2);
